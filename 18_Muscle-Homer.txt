@@ -1,0 +1,3 @@
+# Performing TFBS enrichment analysis
+
+findMotifsGenome.pl Muscle_HomerInput.tsv hg19 GOTO/ -size 50
