@@ -20,13 +20,27 @@
         body {
           background-color: #f0f8ff;
         }
+
+        .column {
+            float: left;
+            width: 33.33%;
+        }
+
+        .row:after {
+              content: "";
+              display: table;
+              clear: both;
+        }
     </style>
 </head>
 <body>
   <div style="background-color:white; padding:20px;">
     <h1>Code for the GOTO DNAm paper</h1>
   </div>
-    <ul>
+  <div class="row">
+    <div class="column">
+      <b> DNAmArray </b>
+      <ul>
         <li><a href="GOTO_script01_DataSplit.html">Script 1: Splitting Data</a></li>
         <li><a href="GOTO_script02_sDataSave.html">Script 2: Saving sData for MethylAid</a></li>
         <li><a href="GOTO_script03_PCA.html">Script 3: MethylAid and PCA</a></li>
@@ -34,6 +48,44 @@
         <li><a href="GOTO_script05_GenotypeCheck-LLS.html">Script 5: Genotype checking for LLS</a></li>
         <li><a href="GOTO_script06_GenotypeCheck-GOTO.html">Script 6: Genotype checking for GOTO</a></li>
         <li><a href="GOTO_script07_RemoveSamples.html">Script 7: Sample corrections</a></li>
-    </ul>
+        <li><a href="GOTO_script08_Normalization.html">Script 8: Functional normalization</a></li>
+        <li><a href="GOTO_script09_ProbeFiltering.html">Script 9: Probe-level QC</a></li>
+        <li><a href="GOTO_script10_Tables.html">Script 10: Descriptive tables</a></li>
+        <li><a href="GOTO_script11_NonResponse.html">Script 11: Non-response analysis</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <b> DNAmArray </b>
+      <ul>
+        <li><a href="GOTO_script01_DataSplit.html">Script 1: Splitting Data</a></li>
+        <li><a href="GOTO_script02_sDataSave.html">Script 2: Saving sData for MethylAid</a></li>
+        <li><a href="GOTO_script03_PCA.html">Script 3: MethylAid and PCA</a></li>
+        <li><a href="GOTO_script04_omicsPrint.html">Script 4: Checking genotypes with omicsPrint</a></li>
+        <li><a href="GOTO_script05_GenotypeCheck-LLS.html">Script 5: Genotype checking for LLS</a></li>
+        <li><a href="GOTO_script06_GenotypeCheck-GOTO.html">Script 6: Genotype checking for GOTO</a></li>
+        <li><a href="GOTO_script07_RemoveSamples.html">Script 7: Sample corrections</a></li>
+        <li><a href="GOTO_script08_Normalization.html">Script 8: Functional normalization</a></li>
+        <li><a href="GOTO_script09_ProbeFiltering.html">Script 9: Probe-level QC</a></li>
+        <li><a href="GOTO_script10_Tables.html">Script 10: Descriptive tables</a></li>
+        <li><a href="GOTO_script11_NonResponse.html">Script 11: Non-response analysis</a></li>
+      </ul>
+    </div>
+    <div class="column">
+      <b> DNAmArray </b>
+      <ul>
+        <li><a href="GOTO_script01_DataSplit.html">Script 1: Splitting Data</a></li>
+        <li><a href="GOTO_script02_sDataSave.html">Script 2: Saving sData for MethylAid</a></li>
+        <li><a href="GOTO_script03_PCA.html">Script 3: MethylAid and PCA</a></li>
+        <li><a href="GOTO_script04_omicsPrint.html">Script 4: Checking genotypes with omicsPrint</a></li>
+        <li><a href="GOTO_script05_GenotypeCheck-LLS.html">Script 5: Genotype checking for LLS</a></li>
+        <li><a href="GOTO_script06_GenotypeCheck-GOTO.html">Script 6: Genotype checking for GOTO</a></li>
+        <li><a href="GOTO_script07_RemoveSamples.html">Script 7: Sample corrections</a></li>
+        <li><a href="GOTO_script08_Normalization.html">Script 8: Functional normalization</a></li>
+        <li><a href="GOTO_script09_ProbeFiltering.html">Script 9: Probe-level QC</a></li>
+        <li><a href="GOTO_script10_Tables.html">Script 10: Descriptive tables</a></li>
+        <li><a href="GOTO_script11_NonResponse.html">Script 11: Non-response analysis</a></li>
+      </ul>
+    </div>
+  </div>
 </body>
 </html>
