@@ -1,0 +1,217 @@
+---
+title: "Script 1: Data splitting by study"
+output:
+  html_document:
+    keep_md: false
+    smart: false
+    toc: true
+    toc_float: true
+    theme: united
+date: 'Compiled: `r format(Sys.Date(), "%B %d, %Y")`'
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_knit$set(root.dir = "/exports/molepi/users/ljsinke/GOTO/main/GOTO_Scripts")
+```
+
+**This script loads in sample data and splits it into three studies: (i) GOTO, (ii) CD4+ T-cell experiments, and (iii) TwinLife**
+
+***
+
+# Setup
+
+Load packages
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+Load in the sample sheet from HMU merged with study sample information
+
+```{r}
+load("../GOTO_Data/Sample_Sheets/GOTO_wave1-targets.Rdata")
+```
+
+Create a `Basename` variable, which points to the related IDAT files
+
+```{r}
+targets <- targets %>% 
+  unite(Basename, 
+        c(SentrixBarcode_A, SentrixPosition_A), 
+        sep="_", 
+        remove=FALSE)
+```
+
+Split the targets file by Study:
+
+* 1: GOTO
+* 2: CD4+ T-cell functional experiments
+* 3: TwinLife pilot
+
+```{r}
+targets <- split(targets, targets$study)
+```
+
+***
+
+# GOTO
+
+Get targets for GOTO
+
+```{r}
+targets_goto <- targets[[1]]
+```
+
+Clean targets
+
+```{r}
+targets_goto <- targets_goto %>% 
+  mutate(
+    DNA_labnr = factor(DNA_labnr),
+    IOP2_ID = factor(as.numeric(old_ID)), 
+    HMU_ID = factor(ID),
+    timepoint = factor(timepoint, 
+                       levels = c("before", "after")),
+    tissue = factor(tissue,
+                    levels = c("fasted blood", "fat", "muscle")),
+    op_status = factor(group,
+                       levels = c("partner", "offspring")),
+    sex = factor(old_sex, 
+                 levels = c("male", "female")),
+    plate = factor(Sample_Plate),
+    well = factor(Sample_Well),
+    array_n = factor(as.character(SentrixBarcode_A)),
+    array_row = as.numeric(substr(SentrixPosition_A,3,3))) %>% 
+  select(DNA_labnr, IOP2_ID, HMU_ID,
+         tissue, timepoint, sex, 
+         age, bmi, op_status,
+         plate, well, isolationdate, 
+         conc_ngul, A260280, volume, 
+         array_n, array_row, Basename)
+```
+
+```{r}
+print(paste0("There is data on ", 
+             ncol(targets_goto), 
+             " variable for ",
+             nrow(targets_goto),
+             " samples in GOTO"))
+```
+
+Save targets
+
+```{r}
+save(targets_goto,
+     file="../GOTO_Data/Processing/GOTO_targets-unfiltered.Rdata")
+```
+
+***
+
+# CD4+ T-cell functional experiments
+
+Get targets for CD4+ T-cell functional experiments
+
+```{r}
+targets_cd4t <- targets[[2]]
+```
+
+Clean targets
+
+```{r}
+targets_cd4t <- targets_cd4t %>% 
+  mutate(
+    donor_ID = factor(old_ID),
+    HMU_ID = factor(ID),
+    well = factor(Sample_Well),
+    timepoint = factor(timepoint, 
+                      levels = c("30m", "3h", "24h", "48h", "72h")),
+    stim_status = factor(group,
+                        levels = c("Ethanol", "Oleic Acid")),
+    plate = factor(Sample_Plate),
+    array_n = factor(as.character(SentrixBarcode_A)),
+    array_row = as.numeric(substr(SentrixPosition_A,3,3))) %>% 
+  select(donor_ID, HMU_ID, timepoint, 
+         stim_status, plate, well,
+         isolationdate, conc_ngul, A260280, 
+         volume, array_n, array_row, 
+         Basename)
+```
+
+```{r}
+print(paste0("There is data on ", 
+             ncol(targets_cd4t), 
+             " variable for ",
+             nrow(targets_cd4t),
+             " samples from the CD4+ T-cell experiments"))
+```
+
+Save targets
+
+```{r}
+save(targets_cd4t,
+     file="../Study2_CD4T/CD4T_data-targets.Rdata")
+```
+
+***
+
+# TwinLife pilot
+
+Get targets for TwinLife pilot
+
+```{r}
+targets_twinlife <- targets[[3]]
+```
+
+Clean targets
+
+```{r}
+targets_twinlife <- targets_twinlife %>% 
+  mutate(
+    pair_ID = factor(old_ID),
+    twin_n = factor(timepoint),
+    HMU_ID = factor(ID),
+    dx = factor(group,
+                levels = c("No", "Yes")),
+    plate = factor(Sample_Plate),
+    sex = factor(old_sex, 
+                 levels = c("male", "female")),
+    array_n = factor(as.character(SentrixBarcode_A)),
+    well = factor(Sample_Well),
+    array_row = as.numeric(substr(SentrixPosition_A,3,3))) %>% 
+  select(pair_ID, twin_n, HMU_ID,
+    weight_g = bmi, dx, sex,
+    plate, well, conc_ngul, 
+    A260280, volume, array_n, 
+    array_row, Basename)
+```
+
+```{r}
+print(paste0("There is data on ", 
+             ncol(targets_twinlife), 
+             " variable for ",
+             nrow(targets_twinlife),
+             " samples in TwinLife"))
+```
+
+Save targets
+
+```{r}
+save(targets_twinlife,
+     file="../Study3_TwinLife/TwinLife_data-targets.Rdata")
+```
+
+***
+
+# Session Info
+
+```{r}
+sessionInfo()
+```
+
+Cleanup
+
+```{r}
+rm(list=ls())
+```
+
+
