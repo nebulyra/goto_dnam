@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 12: Base DNAm model in muscle</h1>
-<h4 class="date">Compiled: June 16, 2024</h4>
+<h4 class="date">Compiled: June 17, 2024</h4>
 
 </div>
 
@@ -1571,13 +1571,13 @@ dim(complete_betas)</code></pre>
 <pre class="r"><code>dim(pc$x)</code></pre>
 <pre><code>## [1] 160   5</code></pre>
 <pre class="r"><code>head(pc$x)</code></pre>
-<pre><code>##             PC1        PC2       PC3       PC4      PC5
-## [1,] -13.288778  -8.553599  6.181866 -1.116066 5.517333
-## [2,]  -5.507855 -10.950377  9.354874  8.201130 6.598548
-## [3,] -17.635972  -6.109277 17.902844  4.392906 0.643677
-## [4,]  -2.702749 -11.361153 17.414077 -3.715791 4.159596
-## [5,]  29.920359   2.856232 19.563603 -6.007014 3.429312
-## [6,] -12.540727  19.144574  7.048747  4.729128 2.173686</code></pre>
+<pre><code>##             PC1        PC2        PC3       PC4      PC5
+## [1,] -13.288778  -8.553599  -6.181866  1.116066 5.517334
+## [2,]  -5.507855 -10.950377  -9.354874 -8.201130 6.598548
+## [3,] -17.635972  -6.109277 -17.902844 -4.392906 0.643677
+## [4,]  -2.702749 -11.361153 -17.414077  3.715791 4.159596
+## [5,]  29.920359   2.856232 -19.563603  6.007014 3.429312
+## [6,] -12.540727  19.144574  -7.048747 -4.729128 2.173686</code></pre>
 <p>Merge</p>
 <pre class="r"><code>targets &lt;- as.data.frame(colData(methData))
 targets &lt;- cbind(
@@ -1632,10 +1632,10 @@ n &lt;- ncol(design) + fit$df.residual</code></pre>
 ## Empirical null estimates are based on 5000 iterations with a burnin-period of 2000.</code></pre>
 <pre class="r"><code>bacon::inflation(bc)</code></pre>
 <pre><code>##  sigma.0 
-## 1.079184</code></pre>
+## 1.079071</code></pre>
 <pre class="r"><code>bacon::bias(bc)</code></pre>
-<pre><code>##      mu.0 
-## 0.0517662</code></pre>
+<pre><code>##       mu.0 
+## 0.05188762</code></pre>
 <p>Save bacon adjusted p-values and t statistics</p>
 <pre class="r"><code>pval &lt;- bacon::pval(bc)
 tstat &lt;- bacon::tstat(bc)</code></pre>
@@ -1648,20 +1648,20 @@ tstat &lt;- bacon::tstat(bc)</code></pre>
 <pre><code>## threshold = -5.4009
 ## Starting values:
 ## p0 = 1.0000, p1 = 0.0000, p2 = 0.0000
-## mu0 = -0.0040, mu1 = 5.4467, mu2 = -5.4546
-## sigma0 = 1.0092, sigma1 = 1.0092, sigma2 = 1.0092</code></pre>
+## mu0 = -0.0041, mu1 = 5.4471, mu2 = -5.4553
+## sigma0 = 1.0093, sigma1 = 1.0093, sigma2 = 1.0093</code></pre>
 <pre class="r"><code>bc</code></pre>
 <pre><code>## Bacon-object containing 1 set(s) of 755777 test-statistics.
-## ...estimated bias: 8e-04.
+## ...estimated bias: 0.00076.
 ## ...estimated inflation: 1.
 ## 
 ## Empirical null estimates are based on 5000 iterations with a burnin-period of 2000.</code></pre>
 <pre class="r"><code>bacon::inflation(bc)</code></pre>
 <pre><code>##  sigma.0 
-## 1.006244</code></pre>
+## 1.006389</code></pre>
 <pre class="r"><code>bacon::bias(bc)</code></pre>
 <pre><code>##         mu.0 
-## 0.0008003021</code></pre>
+## 0.0007559896</code></pre>
 <hr />
 </div>
 <div id="output" class="section level1">
