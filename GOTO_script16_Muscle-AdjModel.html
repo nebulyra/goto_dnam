@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 16: Muscle model adjusted for endothelial nuclei</h1>
-<h4 class="date">Compiled: June 17, 2024</h4>
+<h4 class="date">Compiled: June 18, 2024</h4>
 
 </div>
 
@@ -1547,7 +1547,7 @@ methData</code></pre>
 ## rownames(755777): cg18478105 cg09835024 ... cg10633746 cg12623625
 ## rowData names(57): cpg chr ... MASK_extBase MASK_general
 ## colnames: NULL
-## colData names(41): DNA_labnr IOP2_ID ... cc_musc_endo cc_musc_smooth</code></pre>
+## colData names(40): DNA_labnr IOP2_ID ... cc_musc_endo cc_musc_smooth</code></pre>
 <hr />
 </div>
 <div id="pc-calculation" class="section level1">
@@ -1631,10 +1631,10 @@ n &lt;- ncol(design) + fit$df.residual</code></pre>
 ## Empirical null estimates are based on 5000 iterations with a burnin-period of 2000.</code></pre>
 <pre class="r"><code>bacon::inflation(bc)</code></pre>
 <pre><code>##  sigma.0 
-## 1.087679</code></pre>
+## 1.087727</code></pre>
 <pre class="r"><code>bacon::bias(bc)</code></pre>
 <pre><code>##       mu.0 
-## 0.01967205</code></pre>
+## 0.01990327</code></pre>
 <p>Save bacon adjusted p-values and t statistics</p>
 <pre class="r"><code>pval &lt;- bacon::pval(bc)
 tstat &lt;- bacon::tstat(bc)</code></pre>
@@ -1647,20 +1647,20 @@ tstat &lt;- bacon::tstat(bc)</code></pre>
 <pre><code>## threshold = -5.4009
 ## Starting values:
 ## p0 = 1.0000, p1 = 0.0000, p2 = 0.0000
-## mu0 = -0.0017, mu1 = 5.4381, mu2 = -5.4416
+## mu0 = -0.0020, mu1 = 5.4376, mu2 = -5.4415
 ## sigma0 = 1.0072, sigma1 = 1.0072, sigma2 = 1.0072</code></pre>
 <pre class="r"><code>bc</code></pre>
 <pre><code>## Bacon-object containing 1 set(s) of 755777 test-statistics.
-## ...estimated bias: 0.00054.
+## ...estimated bias: 0.00022.
 ## ...estimated inflation: 1.
 ## 
 ## Empirical null estimates are based on 5000 iterations with a burnin-period of 2000.</code></pre>
 <pre class="r"><code>bacon::inflation(bc)</code></pre>
 <pre><code>##  sigma.0 
-## 1.004798</code></pre>
+## 1.004958</code></pre>
 <pre class="r"><code>bacon::bias(bc)</code></pre>
 <pre><code>##         mu.0 
-## 0.0005371455</code></pre>
+## 0.0002246736</code></pre>
 <hr />
 </div>
 <div id="output" class="section level1">
@@ -1679,12 +1679,12 @@ tstat &lt;- bacon::tstat(bc)</code></pre>
 
 print(paste0(&quot;There are &quot;, nrow(top_cpgs), 
   &quot; significant CpGs in muscle after adjusting for predicted endothelial cells.&quot;))</code></pre>
-<pre><code>## [1] &quot;There are 161 significant CpGs in muscle after adjusting for predicted endothelial cells.&quot;</code></pre>
+<pre><code>## [1] &quot;There are 162 significant CpGs in muscle after adjusting for predicted endothelial cells.&quot;</code></pre>
 <pre class="r"><code>print(paste0(nrow(top_cpgs %&gt;% filter(beta&lt;0)), 
              &quot; of these are hypomethylated, and &quot;, 
              nrow(top_cpgs %&gt;% filter(beta&gt;0)), 
              &quot; are hypermethylated.&quot;))</code></pre>
-<pre><code>## [1] &quot;141 of these are hypomethylated, and 20 are hypermethylated.&quot;</code></pre>
+<pre><code>## [1] &quot;142 of these are hypomethylated, and 20 are hypermethylated.&quot;</code></pre>
 <hr />
 </div>
 <div id="save" class="section level1">

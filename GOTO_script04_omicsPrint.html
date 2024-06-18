@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 4: Identify sample mismatches</h1>
-<h4 class="date">Compiled: June 16, 2024</h4>
+<h4 class="date">Compiled: June 17, 2024</h4>
 
 </div>
 
@@ -1552,8 +1552,8 @@ print(paste0(&quot;There are &quot;, length(snp_cpgs),
 <pre><code>## [1] &quot;There are 28152 CpGs containing common European SNPs&quot;</code></pre>
 <hr />
 </div>
-<div id="load-methylation-data" class="section level1">
-<h1>Load Methylation Data</h1>
+<div id="common-snp-data" class="section level1">
+<h1>Common SNP data</h1>
 <p>Load in unfiltered methylation data</p>
 <pre class="r"><code>load(&quot;../GOTO_Data/Processing/GOTO_methData-unfiltered.Rdata&quot;)
 methData_unfiltered</code></pre>
@@ -1565,7 +1565,7 @@ methData_unfiltered</code></pre>
 ## rowData names(7): cpg chr ... gene_HGNC MASK_general
 ## colnames(548): 203527980082_R01C01 203527980082_R02C01 ...
 ##   203550300093_R07C01 203550300093_R08C01
-## colData names(20): DNA_labnr IOP2_ID ... PC6 smoke</code></pre>
+## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
 <p>Subset <code>methData_unfiltered</code> to keep only those probes containing common SNPs</p>
 <pre class="r"><code>methData_snps &lt;- methData_unfiltered[
   names(methData_unfiltered) %in% snp_cpgs,
@@ -1596,11 +1596,11 @@ methData_blood</code></pre>
 ## rowData names(7): cpg chr ... gene_HGNC MASK_general
 ## colnames(200): 203527980080_R01C01 203527980080_R02C01 ...
 ##   203550300093_R07C01 203550300093_R08C01
-## colData names(20): DNA_labnr IOP2_ID ... PC6 smoke</code></pre>
+## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
 <p>Save the phenotype information</p>
 <pre class="r"><code>targets_blood &lt;- as.data.frame(colData(methData_blood))
 dim(targets_blood)</code></pre>
-<pre><code>## [1] 200  20</code></pre>
+<pre><code>## [1] 200  19</code></pre>
 <p>Save the beta values</p>
 <pre class="r"><code>betas_blood &lt;- assay(methData_blood)
 dim(betas_blood)</code></pre>
@@ -1748,11 +1748,11 @@ methData_fat</code></pre>
 ## rowData names(7): cpg chr ... gene_HGNC MASK_general
 ## colnames(184): 203527980082_R07C01 203527980082_R08C01 ...
 ##   203550300093_R05C01 203550300093_R06C01
-## colData names(20): DNA_labnr IOP2_ID ... PC6 smoke</code></pre>
+## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
 <p>Save the phenotype information</p>
 <pre class="r"><code>targets_fat &lt;- as.data.frame(colData(methData_fat))
 dim(targets_fat)</code></pre>
-<pre><code>## [1] 184  20</code></pre>
+<pre><code>## [1] 184  19</code></pre>
 <p>Save the beta values</p>
 <pre class="r"><code>betas_fat &lt;- assay(methData_fat)
 dim(betas_fat)</code></pre>
@@ -1891,11 +1891,11 @@ methData_muscle</code></pre>
 ## rowData names(7): cpg chr ... gene_HGNC MASK_general
 ## colnames(164): 203527980082_R01C01 203527980082_R02C01 ...
 ##   203550300091_R01C01 203550300091_R02C01
-## colData names(20): DNA_labnr IOP2_ID ... PC6 smoke</code></pre>
+## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
 <p>Save the phenotype information</p>
 <pre class="r"><code>targets_muscle &lt;- as.data.frame(colData(methData_muscle))
 dim(targets_muscle)</code></pre>
-<pre><code>## [1] 164  20</code></pre>
+<pre><code>## [1] 164  19</code></pre>
 <p>Save the beta values</p>
 <pre class="r"><code>betas_muscle &lt;- assay(methData_muscle)
 dim(betas_muscle)</code></pre>

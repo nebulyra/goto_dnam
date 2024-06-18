@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 1: Data splitting by study</h1>
-<h4 class="date">Compiled: June 16, 2024</h4>
+<h4 class="date">Compiled: June 17, 2024</h4>
 
 </div>
 
@@ -1562,10 +1562,10 @@ div.tocify {
          array_n, array_row, Basename)</code></pre>
 <pre class="r"><code>print(paste0(&quot;There is data on &quot;, 
              ncol(targets_goto), 
-             &quot; variable for &quot;,
+             &quot; variables for &quot;,
              nrow(targets_goto),
              &quot; samples in GOTO&quot;))</code></pre>
-<pre><code>## [1] &quot;There is data on 18 variable for 562 samples in GOTO&quot;</code></pre>
+<pre><code>## [1] &quot;There is data on 18 variables for 562 samples in GOTO&quot;</code></pre>
 <p>Save targets</p>
 <pre class="r"><code>save(targets_goto,
      file=&quot;../GOTO_Data/Processing/GOTO_targets-unfiltered.Rdata&quot;)</code></pre>
@@ -1595,10 +1595,10 @@ div.tocify {
          Basename)</code></pre>
 <pre class="r"><code>print(paste0(&quot;There is data on &quot;, 
              ncol(targets_cd4t), 
-             &quot; variable for &quot;,
+             &quot; variables for &quot;,
              nrow(targets_cd4t),
              &quot; samples from the CD4+ T-cell experiments&quot;))</code></pre>
-<pre><code>## [1] &quot;There is data on 13 variable for 90 samples from the CD4+ T-cell experiments&quot;</code></pre>
+<pre><code>## [1] &quot;There is data on 13 variables for 90 samples from the CD4+ T-cell experiments&quot;</code></pre>
 <p>Save targets</p>
 <pre class="r"><code>save(targets_cd4t,
      file=&quot;../Study2_CD4T/CD4T_data-targets.Rdata&quot;)</code></pre>
@@ -1629,10 +1629,10 @@ div.tocify {
     array_row, Basename)</code></pre>
 <pre class="r"><code>print(paste0(&quot;There is data on &quot;, 
              ncol(targets_twinlife), 
-             &quot; variable for &quot;,
+             &quot; variables for &quot;,
              nrow(targets_twinlife),
              &quot; samples in TwinLife&quot;))</code></pre>
-<pre><code>## [1] &quot;There is data on 14 variable for 20 samples in TwinLife&quot;</code></pre>
+<pre><code>## [1] &quot;There is data on 14 variables for 20 samples in TwinLife&quot;</code></pre>
 <p>Save targets</p>
 <pre class="r"><code>save(targets_twinlife,
      file=&quot;../Study3_TwinLife/TwinLife_data-targets.Rdata&quot;)</code></pre>

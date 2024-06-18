@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 7: Sample mixup corrections</h1>
-<h4 class="date">Compiled: June 16, 2024</h4>
+<h4 class="date">Compiled: June 17, 2024</h4>
 
 </div>
 
@@ -1562,7 +1562,7 @@ methData_unfiltered</code></pre>
 ## rowData names(7): cpg chr ... gene_HGNC MASK_general
 ## colnames(546): 203527980082_R01C01 203527980082_R02C01 ...
 ##   203550300093_R07C01 203550300093_R08C01
-## colData names(20): DNA_labnr IOP2_ID ... PC6 smoke</code></pre>
+## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
 <pre class="r"><code>RGset</code></pre>
 <pre><code>## class: RGChannelSetExtended 
 ## dim: 1051815 546 
@@ -1605,7 +1605,7 @@ methData_unfiltered</code></pre>
 ## rowData names(7): cpg chr ... gene_HGNC MASK_general
 ## colnames(534): 203527980082_R01C01 203527980082_R02C01 ...
 ##   203550300093_R07C01 203550300093_R08C01
-## colData names(20): DNA_labnr IOP2_ID ... PC6 smoke</code></pre>
+## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
 <pre class="r"><code>RGset &lt;- RGset[,!colnames(RGset) %in% non_comply_basenames]
 
 RGset</code></pre>
