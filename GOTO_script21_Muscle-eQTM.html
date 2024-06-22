@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 21: eQTMs in muscle</h1>
-<h4 class="date">Compiled: June 18, 2024</h4>
+<h4 class="date">Compiled: June 22, 2024</h4>
 
 </div>
 
@@ -1541,15 +1541,8 @@ deg &lt;- deg %&gt;%
   dplyr::select(gene_ens, 
                 logFC, deg_p = pvalue, 
                 deg_padj = padj)
-head(deg)</code></pre>
-<pre><code>##                        gene_ens      logFC        deg_p     deg_padj
-## ENSG00000117594 ENSG00000117594 -0.4646230 2.070661e-09 3.788328e-07
-## ENSG00000127527 ENSG00000127527 -0.2020087 3.077723e-09 3.788328e-07
-## ENSG00000169692 ENSG00000169692 -0.2709130 3.284677e-09 3.788328e-07
-## ENSG00000055208 ENSG00000055208 -0.1768428 2.927471e-08 2.070958e-06
-## ENSG00000104221 ENSG00000104221 -0.2097496 2.992713e-08 2.070958e-06
-## ENSG00000126091 ENSG00000126091 -0.2469463 3.682312e-08 2.123467e-06</code></pre>
-<pre class="r"><code>df &lt;- right_join(df, deg, by='gene_ens')
+
+df &lt;- inner_join(df, deg, by='gene_ens')
 head(df)</code></pre>
 <pre><code>##          cpg        gene_ens     gene       logFC        deg_p     deg_padj
 ## 1 cg26998535 ENSG00000120029 C10orf76 -0.15702014 4.918806e-06 5.868644e-05
@@ -1582,10 +1575,6 @@ dim(betas)</code></pre>
 <p>Filter muscle</p>
 <pre class="r"><code>targets &lt;- targets %&gt;% 
   filter(tissue == 'muscle')</code></pre>
-<p>Check order</p>
-<pre class="r"><code>check &lt;- rownames(targets) == colnames(methData)
-xtabs(~check)</code></pre>
-<pre><code>## &lt; table of extent 0 &gt;</code></pre>
 <p>Save covariates</p>
 <pre class="r"><code>targets &lt;- targets %&gt;% 
   dplyr::select(IOP2_ID, timepoint, age, sex, smoke,
@@ -1626,18 +1615,12 @@ dat1 &lt;- read.gotornaseq(pathIN_dat = pathIN_dat,
 ## | VOOM .. OK!
 ## | DONE!</code></pre>
 <pre class="r"><code>goto_exp &lt;- dat1[[&quot;dat&quot;]]</code></pre>
-<p>Which genes of interest do we not have data for?</p>
+<p>Check if RNAseq data exists for all genes</p>
 <pre class="r"><code>check &lt;- df$gene_ens %in% colnames(goto_exp)
 xtabs(~check)</code></pre>
 <pre><code>## check
 ## TRUE 
 ##  170</code></pre>
-<pre class="r"><code>print(paste0('We cannot test the following CpG gene pairs'))</code></pre>
-<pre><code>## [1] &quot;We cannot test the following CpG gene pairs&quot;</code></pre>
-<pre class="r"><code>df[!check,]</code></pre>
-<pre><code>## [1] cpg      gene_ens gene     logFC    deg_p    deg_padj
-## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<pre class="r"><code>df &lt;- df[check,]</code></pre>
 <p>Save genes we will check</p>
 <pre class="r"><code>av_genes &lt;- df$gene_ens
 head(av_genes)</code></pre>
@@ -1736,6 +1719,7 @@ dim(exp_df)</code></pre>
 }</code></pre>
 <p>Adjust p-values</p>
 <pre class="r"><code>out$padj &lt;- p.adjust(out$p, method='fdr')</code></pre>
+<p>Inspect top</p>
 <pre class="r"><code>out %&gt;% arrange(padj) %&gt;% head()</code></pre>
 <pre><code>##          cpg   gene        gene_ens          es          se            p
 ## 1 cg17411016  MCFD2 ENSG00000180398  0.15740085 0.017187651 3.823161e-15

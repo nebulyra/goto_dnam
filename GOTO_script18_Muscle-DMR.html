@@ -1502,13 +1502,13 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 18: Differentially methylated regions</h1>
-<h4 class="date">Compiled: June 18, 2024</h4>
+<h4 class="date">Compiled: June 22, 2024</h4>
 
 </div>
 
 
 <blockquote>
-<p>This script saves top CpGs for HOMER TFBS enrichment analysis, their nearest genes, and reports any DMRs.</p>
+<p>This script annotates muscle CpGs, saves data for TFBS enrichment analysis, locates nearest genes, and reports any DMRs.</p>
 </blockquote>
 <hr />
 <div id="setup" class="section level1">
@@ -1598,7 +1598,29 @@ anno &lt;- left_join(
   by=&quot;cpg&quot;
 )
 
-top_cpgs &lt;- left_join(top_cpgs, anno, by=&quot;cpg&quot;)</code></pre>
+top_cpgs &lt;- left_join(top_cpgs, anno, by=&quot;cpg&quot;)
+head(top_cpgs)</code></pre>
+<pre><code>##          cpg        beta          SE            p     padj_fdr         t   N
+## 1 cg12394201 -0.06244505 0.008518138 1.400163e-11 1.058211e-05 -6.757889 147
+## 2 cg24161080 -0.08385868 0.011676090 3.564446e-11 1.346963e-05 -6.621138 148
+## 3 cg05008948 -0.03083088 0.004617073 7.398424e-10 1.863853e-04 -6.157324 148
+## 4 cg21342383 -0.01871533 0.002916373 3.257549e-09 4.923961e-04 -5.918063 148
+## 5 cg01668986 -0.04349693 0.006753537 2.859493e-09 4.923961e-04 -5.939468 148
+## 6 cg13585930 -0.05644199 0.008913697 5.230718e-09 6.588761e-04 -5.839661 148
+##   cpg_chr cpg_start   cpg_end cpg_strand                gene_HGNC        E107
+## 1      11  43942417  43942419          + ALKBH3-AS1;RP11-613D13.4      6_EnhG
+## 2      18  33889786  33889788          -                    FHOD3       7_Enh
+## 3       7  99160713  99160715          +     GS1-259H13.10;ZNF655        4_Tx
+## 4      10 127661991 127661993          -          FANK1;FANK1-AS1    15_Quies
+## 5       8  21541541  21541543          -                     &lt;NA&gt;       7_Enh
+## 6      10  72027356  72027358          +                   NPFFR1 14_ReprPCWk
+##          E108
+## 1      6_EnhG
+## 2       7_Enh
+## 3      6_EnhG
+## 4    15_Quies
+## 5       7_Enh
+## 6 14_ReprPCWk</code></pre>
 <hr />
 </div>
 <div id="homer" class="section level1">
@@ -1614,8 +1636,15 @@ top_cpgs &lt;- left_join(top_cpgs, anno, by=&quot;cpg&quot;)</code></pre>
     end = cpg_end,
     strand = cpg_strand
   ) 
-
-write_tsv(homer, file=&quot;../GOTO_Data/Homer/GOTO_Homer-Muscle.tsv&quot;)</code></pre>
+head(homer)</code></pre>
+<pre><code>##          cpg   chr     start       end strand
+## 1 cg12394201 chr11  43942417  43942419      +
+## 2 cg24161080 chr18  33889786  33889788      -
+## 3 cg05008948  chr7  99160713  99160715      +
+## 4 cg21342383 chr10 127661991 127661993      -
+## 5 cg01668986  chr8  21541541  21541543      -
+## 6 cg13585930 chr10  72027356  72027358      +</code></pre>
+<pre class="r"><code>write_tsv(homer, file=&quot;../GOTO_Data/Homer/GOTO_Homer-Muscle.tsv&quot;)</code></pre>
 <hr />
 </div>
 <div id="nearest-gene" class="section level1">
@@ -1735,31 +1764,52 @@ df$gene_nearest_name &lt;- sym
 df &lt;- df[match(cpg_top, df$cpg),]
 top_cpgs &lt;- top_cpgs[match(cpg_top, top_cpgs$cpg),]
 
-top_cpgs &lt;- left_join(top_cpgs, df, by = &quot;cpg&quot;)</code></pre>
+top_cpgs &lt;- left_join(top_cpgs, df, by = &quot;cpg&quot;)
+head(top_cpgs)</code></pre>
+<pre><code>##          cpg        beta          SE            p     padj_fdr         t   N
+## 1 cg12394201 -0.06244505 0.008518138 1.400163e-11 1.058211e-05 -6.757889 147
+## 2 cg24161080 -0.08385868 0.011676090 3.564446e-11 1.346963e-05 -6.621138 148
+## 3 cg05008948 -0.03083088 0.004617073 7.398424e-10 1.863853e-04 -6.157324 148
+## 4 cg21342383 -0.01871533 0.002916373 3.257549e-09 4.923961e-04 -5.918063 148
+## 5 cg01668986 -0.04349693 0.006753537 2.859493e-09 4.923961e-04 -5.939468 148
+## 6 cg13585930 -0.05644199 0.008913697 5.230718e-09 6.588761e-04 -5.839661 148
+##   cpg_chr cpg_start   cpg_end cpg_strand                gene_HGNC        E107
+## 1      11  43942417  43942419          + ALKBH3-AS1;RP11-613D13.4      6_EnhG
+## 2      18  33889786  33889788          -                    FHOD3       7_Enh
+## 3       7  99160713  99160715          +     GS1-259H13.10;ZNF655        4_Tx
+## 4      10 127661991 127661993          -          FANK1;FANK1-AS1    15_Quies
+## 5       8  21541541  21541543          -                     &lt;NA&gt;       7_Enh
+## 6      10  72027356  72027358          +                   NPFFR1 14_ReprPCWk
+##          E108 gene_nearest_ens gene_nearest_dist gene_nearest_name
+## 1      6_EnhG  ENSG00000166199               856            ALKBH3
+## 2       7_Enh  ENSG00000134775             11822             FHOD3
+## 3      6_EnhG  ENSG00000197343                95            ZNF655
+## 4    15_Quies  ENSG00000203780              6736             FANK1
+## 5       7_Enh  ENSG00000168546              9246             GFRA2
+## 6 14_ReprPCWk  ENSG00000148734              1208            NPFFR1</code></pre>
 <hr />
 </div>
-<div id="dmrs" class="section level1">
-<h1>DMRs</h1>
+<div id="dmr-finder" class="section level1">
+<h1>DMR finder</h1>
 <p>Make DMR data frame</p>
 <pre class="r"><code>dmr_cpgs &lt;- top_cpgs %&gt;% 
   dplyr::select(
     chromosome = cpg_chr,
     start = cpg_start,
-    padj = padj_fdr,
-  ) %&gt;% filter(!is.na(chromosome))</code></pre>
+    padj = padj_fdr)</code></pre>
+<p>Create significance indicator</p>
 <pre class="r"><code>dmr_cpgs &lt;- dmr_cpgs %&gt;% mutate(
     crit = ifelse(padj &lt;= 0.05, 1, 0))</code></pre>
-<pre class="r"><code>dmr_cpgs &lt;- dmr_cpgs %&gt;% filter(!is.na(crit) &amp;
-                        !is.na(chromosome))</code></pre>
+<p>Arrange by genomic position</p>
 <pre class="r"><code>dmr_cpgs &lt;- dmr_cpgs %&gt;% 
   arrange(chromosome, start) %&gt;% 
   dplyr::select(chromosome, start, crit)</code></pre>
+<p>Initialize variables</p>
 <pre class="r"><code>chromosome=1:22
 MAXIMUM_REGION_LENGTH = 1000
-mismatches = 3
-chr_list &lt;- 1:22</code></pre>
+mismatches = 3</code></pre>
 <p>Run DMRfinder</p>
-<pre class="r"><code>for(x in chr_list){
+<pre class="r"><code>for(x in chromosome){
 
 tryCatch({chr1 = dmr_cpgs[dmr_cpgs[,1]==x,]
 if(nrow(chr1) &gt;= 1){

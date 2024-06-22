@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 6: Checking GOTO genotypes</h1>
-<h4 class="date">Compiled: June 17, 2024</h4>
+<h4 class="date">Compiled: June 21, 2024</h4>
 
 </div>
 
@@ -1521,25 +1521,33 @@ library(snpStats)</code></pre>
   bed = '../GOTO_Data/Processing/Genotypes/GOTO.bed', 
   bim = '../GOTO_Data/Processing/Genotypes/GOTO.bim', 
   fam = '../GOTO_Data/Processing/Genotypes/GOTO.fam')</code></pre>
+<hr />
+</div>
+<div id="omicsprint" class="section level1">
+<h1>OmicsPrint</h1>
 <p>Read in the results from omicsPrint (genotyping from DNA methylation values in each of the 3 tissues):</p>
-<p>1230 SNPs from 200 fasted blood samples</p>
+<p><strong>1230 SNPs from 200 fasted blood samples</strong></p>
 <pre class="r"><code>load('../GOTO_Data/Processing/omicsPrint/GOTO_omicsPrint-blood.Rdata')
 dnam_blood &lt;- as.data.frame(genotype)
 rm(list = c('mismatches', 'out', 'relations', 'genotype'))
 dim(dnam_blood)</code></pre>
 <pre><code>## [1] 1230  200</code></pre>
-<p>1010 SNPs from 164 muscle samples</p>
+<p><strong>1010 SNPs from 164 muscle samples</strong></p>
 <pre class="r"><code>load('../GOTO_Data/Processing/omicsPrint/GOTO_omicsPrint-muscle.Rdata')
 dnam_muscle &lt;- as.data.frame(genotype)
 rm(list = c('mismatches', 'out', 'relations', 'genotype'))
 dim(dnam_muscle)</code></pre>
 <pre><code>## [1] 1010  164</code></pre>
-<p>1059 SNPs from 184 muscle samples</p>
+<p><strong>1059 SNPs from 184 muscle samples</strong></p>
 <pre class="r"><code>load('../GOTO_Data/Processing/omicsPrint/GOTO_omicsPrint-fat.Rdata')
 dnam_fat &lt;- as.data.frame(genotype)
 rm(list = c('mismatches', 'out', 'relations', 'genotype'))
 dim(dnam_fat)</code></pre>
 <pre><code>## [1] 1059  184</code></pre>
+<hr />
+</div>
+<div id="key-file" class="section level1">
+<h1>Key file</h1>
 <p>Read in key file sent from M.B.</p>
 <pre class="r"><code>key_id_gwas &lt;- read_csv('../GOTO_Data/Processing/Genotypes/GOTO_Labnrs-EDTA_20210222.csv')</code></pre>
 <pre><code>## Rows: 327 Columns: 6
@@ -1557,7 +1565,7 @@ dim(dnam_fat)</code></pre>
 key_id_dnam &lt;- targets
 rm('targets')</code></pre>
 <p>Save a sample ID key for each set of samples</p>
-<p>200 blood samples</p>
+<p><strong>200 blood samples</strong></p>
 <pre class="r"><code>key_blood &lt;- key_id_dnam %&gt;% dplyr::select(sample_ID = Basename,
                                       IOP2_ID,
                                       HMU_ID, 
@@ -1566,7 +1574,7 @@ rm('targets')</code></pre>
   mutate(IOP2_ID = as.numeric(as.character(IOP2_ID)))
 
 key_blood &lt;- left_join(key_blood, key_id_gwas, by = 'IOP2_ID')</code></pre>
-<p>164 muscle samples</p>
+<p><strong>164 muscle samples</strong></p>
 <pre class="r"><code>key_muscle &lt;- key_id_dnam %&gt;% dplyr::select(sample_ID = Basename,
                                       IOP2_ID,
                                       HMU_ID, 
@@ -1576,7 +1584,7 @@ key_blood &lt;- left_join(key_blood, key_id_gwas, by = 'IOP2_ID')</code></pre>
 
 
 key_muscle &lt;- left_join(key_muscle, key_id_gwas, by = 'IOP2_ID')</code></pre>
-<p>184 fat samples</p>
+<p><strong>184 fat samples</strong></p>
 <pre class="r"><code>key_fat &lt;- key_id_dnam %&gt;% dplyr::select(sample_ID = Basename,
                                       IOP2_ID,
                                       HMU_ID, 
@@ -1612,13 +1620,13 @@ rm(list = c('key_id_gwas', 'key_id_dnam'))</code></pre>
   mutate(n = n()) %&gt;% ungroup() %&gt;% 
   filter(n == 1) %&gt;% dplyr::select(-n)</code></pre>
 <p>Merge with the <code>beta2genotype</code> data</p>
-<p>600 / 1230 CpGs in blood data map to only 1 SNP</p>
+<p><strong>600 / 1230 CpGs in blood data map to only 1 SNP</strong></p>
 <pre class="r"><code>dnam_blood &lt;- dnam_blood %&gt;% rownames_to_column(var = 'cpg')
 dnam_blood &lt;- inner_join(cpg_snp, dnam_blood, by = 'cpg')</code></pre>
-<p>500 / 1010 CpGs in muscle data map to only 1 SNP</p>
+<p><strong>500 / 1010 CpGs in muscle data map to only 1 SNP</strong></p>
 <pre class="r"><code>dnam_muscle &lt;- dnam_muscle %&gt;% rownames_to_column(var = 'cpg')
 dnam_muscle &lt;- inner_join(cpg_snp, dnam_muscle, by = 'cpg')</code></pre>
-<p>507 / 1059 CpGs in fat data map to only 1 SNP</p>
+<p><strong>507 / 1059 CpGs in fat data map to only 1 SNP</strong></p>
 <pre class="r"><code>dnam_fat &lt;- dnam_fat %&gt;% rownames_to_column(var = 'cpg')
 dnam_fat &lt;- inner_join(cpg_snp, dnam_fat, by = 'cpg')</code></pre>
 </div>
@@ -1628,28 +1636,28 @@ dnam_fat &lt;- inner_join(cpg_snp, dnam_fat, by = 'cpg')</code></pre>
 <p>The rownames of the genotype data must be converted to labnr</p>
 <pre class="r"><code>rownames(lls_plink$genotypes) &lt;- lls_plink$fam$member</code></pre>
 <p>First we subset the keys:</p>
-<p>46 / 200 blood samples have genotypes in GOTO data</p>
+<p><strong>46 / 200 blood samples have genotypes in GOTO data</strong></p>
 <pre class="r"><code>key_blood &lt;- key_blood %&gt;% filter(labnr %in% (rownames(lls_plink$genotypes)))
 dim(key_blood)</code></pre>
 <pre><code>## [1] 46  5</code></pre>
-<p>30 / 164 muscle samples have genotypes in GOTO data</p>
+<p><strong>30 / 164 muscle samples have genotypes in GOTO data</strong></p>
 <pre class="r"><code>key_muscle &lt;- key_muscle %&gt;% filter(labnr %in% (rownames(lls_plink$genotypes)))
 dim(key_muscle)</code></pre>
 <pre><code>## [1] 30  5</code></pre>
-<p>44 / 184 fat samples have genotypes in GOTO data</p>
+<p><strong>44 / 184 fat samples have genotypes in GOTO data</strong></p>
 <pre class="r"><code>key_fat &lt;- key_fat %&gt;% filter(labnr %in% (rownames(lls_plink$genotypes)))
 dim(key_fat)</code></pre>
 <pre><code>## [1] 44  5</code></pre>
 <p>Now we can subset the <code>beta2genotype</code> data using these keys</p>
-<p>Final blood data of 595 CpGs from 48 samples</p>
+<p><strong>Final blood data of 595 CpGs from 48 samples</strong></p>
 <pre class="r"><code>dnam_blood &lt;- dnam_blood %&gt;% dplyr::select(cpg, snpID, key_blood$sample_ID)
 dim(dnam_blood)</code></pre>
 <pre><code>## [1] 595  48</code></pre>
-<p>Final muscle data of 488 CpGs from 32 samples</p>
+<p><strong>Final muscle data of 488 CpGs from 32 samples</strong></p>
 <pre class="r"><code>dnam_muscle &lt;- dnam_muscle %&gt;% dplyr::select(cpg, snpID, key_muscle$sample_ID)
 dim(dnam_muscle)</code></pre>
 <pre><code>## [1] 488  32</code></pre>
-<p>Final fat data of 508 CpGs from 46 samples</p>
+<p><strong>Final fat data of 508 CpGs from 46 samples</strong></p>
 <pre class="r"><code>dnam_fat &lt;- dnam_fat %&gt;% dplyr::select(cpg, snpID, key_fat$sample_ID)
 dim(dnam_fat)</code></pre>
 <pre><code>## [1] 508  46</code></pre>
@@ -1660,39 +1668,37 @@ dim(dnam_fat)</code></pre>
 <pre class="r"><code>lls_plink &lt;- as.data.frame(t(lls_plink$genotypes))
 dim(lls_plink)</code></pre>
 <pre><code>## [1] 719665     48</code></pre>
-<p>130 SNPs for blood found in the genotype data from 24 people</p>
+<p><strong>130 SNPs for blood found in the genotype data from 24 people</strong></p>
 <pre class="r"><code>genotype_blood &lt;- lls_plink %&gt;% dplyr::select(key_blood$labnr) %&gt;% 
   rownames_to_column(var = 'snpID') %&gt;% 
   filter(snpID %in% dnam_blood$snpID) %&gt;% arrange(snpID)
 dim(genotype_blood)</code></pre>
 <pre><code>## [1] 130  24</code></pre>
-<p>100 SNPs for muscle found in the genotype data from 16 people</p>
+<p><strong>100 SNPs for muscle found in the genotype data from 16 people</strong></p>
 <pre class="r"><code>genotype_muscle &lt;- lls_plink %&gt;% dplyr::select(key_muscle$labnr) %&gt;% 
   rownames_to_column(var = 'snpID') %&gt;% 
   filter(snpID %in% dnam_muscle$snpID) %&gt;% arrange(snpID)
 dim(genotype_muscle)</code></pre>
 <pre><code>## [1] 100  16</code></pre>
-<p>108 SNPs for fat found in the genotype data from 23 people</p>
+<p><strong>108 SNPs for fat found in the genotype data from 23 people</strong></p>
 <pre class="r"><code>genotype_fat &lt;- lls_plink %&gt;% dplyr::select(key_fat$labnr) %&gt;% 
   rownames_to_column(var = 'snpID') %&gt;% 
   filter(snpID %in% dnam_fat$snpID) %&gt;% arrange(snpID)
 dim(genotype_fat)</code></pre>
 <pre><code>## [1] 108  23</code></pre>
-<p>Remove the big genotype data</p>
-<pre class="r"><code>rm('lls_plink')</code></pre>
 </div>
 <div id="subsetting-beta2genotype-for-snps" class="section level2">
 <h2>Subsetting <code>beta2genotype</code> for SNPs</h2>
 <p>Finally we keep only the SNPs that overlap with genotype data</p>
-<p>130 single SNP CpGs from 48 blood samples</p>
+<p><strong>130 single SNP CpGs from 48 blood samples</strong></p>
 <pre class="r"><code>dnam_blood &lt;- dnam_blood %&gt;% filter(snpID %in% genotype_blood$snpID) %&gt;% arrange(snpID)
 dim(dnam_blood)</code></pre>
 <pre><code>## [1] 130  48</code></pre>
-<p>100 single SNP CpGs from 32 muscle samples</p>
+<p><strong>100 single SNP CpGs from 32 muscle samples</strong></p>
 <pre class="r"><code>dnam_muscle &lt;- dnam_muscle %&gt;% filter(snpID %in% genotype_muscle$snpID) %&gt;% arrange(snpID)
 dim(dnam_muscle)</code></pre>
 <pre><code>## [1] 100  32</code></pre>
-<p>108 single SNP CpGs from 46 fat samples</p>
+<p><strong>108 single SNP CpGs from 46 fat samples</strong></p>
 <pre class="r"><code>dnam_fat &lt;- dnam_fat %&gt;% filter(snpID %in% genotype_fat$snpID) %&gt;% arrange(snpID)
 dim(dnam_fat)</code></pre>
 <pre><code>## [1] 108  46</code></pre>

@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 13: Clustering single nuclei data</h1>
-<h4 class="date">Compiled: June 17, 2024</h4>
+<h4 class="date">Compiled: June 21, 2024</h4>
 
 </div>
 
@@ -1752,27 +1752,27 @@ object &lt;- ScaleData(object, features = all.genes)</code></pre>
 ## Running Louvain algorithm...
 ## Maximum modularity in 10 random starts: 0.9474
 ## Number of communities: 8
-## Elapsed time: 70 seconds</code></pre>
+## Elapsed time: 73 seconds</code></pre>
 <hr />
 </div>
 <div id="non-linear-dimensional-reduction" class="section level1">
 <h1>Non-linear dimensional reduction</h1>
 <pre class="r"><code>object &lt;- RunUMAP(object, 
                   dims = 1:10)</code></pre>
-<pre><code>## 00:12:04 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>## 00:12:04 Read 142761 rows and found 10 numeric columns</code></pre>
-<pre><code>## 00:12:04 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>## 00:12:04 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>## 20:25:12 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>## 20:25:12 Read 142761 rows and found 10 numeric columns</code></pre>
+<pre><code>## 20:25:12 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>## 20:25:12 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>## 0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>## [----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>## **************************************************|
-## 00:12:27 Writing NN index file to temp file /tmp/RtmpR7X5p7/file26907e3787a4b4
-## 00:12:27 Searching Annoy index using 1 thread, search_k = 3000
-## 00:13:35 Annoy recall = 100%
-## 00:13:37 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
-## 00:13:45 Initializing from normalized Laplacian + noise (using irlba)
-## 00:14:01 Commencing optimization for 200 epochs, with 6118886 positive edges
-## 00:15:26 Optimization finished</code></pre>
+## 20:25:33 Writing NN index file to temp file /tmp/RtmpIcSDad/file259acc3db05aa7
+## 20:25:33 Searching Annoy index using 1 thread, search_k = 3000
+## 20:26:32 Annoy recall = 100%
+## 20:26:34 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+## 20:26:43 Initializing from normalized Laplacian + noise (using irlba)
+## 20:26:58 Commencing optimization for 200 epochs, with 6118886 positive edges
+## 20:28:18 Optimization finished</code></pre>
 <pre class="r"><code>DimPlot(object, 
         reduction = &quot;umap&quot;)</code></pre>
 <pre><code>## Rasterizing points since number of points exceeds 100,000.
