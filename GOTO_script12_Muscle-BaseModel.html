@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 12: Base DNAm model in muscle</h1>
-<h4 class="date">Compiled: June 21, 2024</h4>
+<h4 class="date">Compiled: June 23, 2024</h4>
 
 </div>
 
@@ -1546,9 +1546,8 @@ methData</code></pre>
 ## assays(1): beta
 ## rownames(755777): cg18478105 cg09835024 ... cg10633746 cg12623625
 ## rowData names(57): cpg chr ... MASK_extBase MASK_general
-## colnames(160): 203527980082_R01C01 203527980082_R02C01 ...
-##   203550300091_R01C01 203550300091_R02C01
-## colData names(19): DNA_labnr IOP2_ID ... Basename smoke</code></pre>
+## colnames: NULL
+## colData names(32): DNA_labnr IOP2_ID ... hdl_c systolic_bp</code></pre>
 <hr />
 </div>
 <div id="pc-calculation" class="section level1">
@@ -1571,13 +1570,13 @@ dim(complete_betas)</code></pre>
 <pre class="r"><code>dim(pc$x)</code></pre>
 <pre><code>## [1] 160   5</code></pre>
 <pre class="r"><code>head(pc$x)</code></pre>
-<pre><code>##             PC1        PC2        PC3       PC4       PC5
-## [1,] -13.288778   8.553599  -6.181866 -1.116066 -5.517334
-## [2,]  -5.507855  10.950377  -9.354874  8.201130 -6.598548
-## [3,] -17.635972   6.109277 -17.902844  4.392906 -0.643677
-## [4,]  -2.702749  11.361153 -17.414077 -3.715791 -4.159596
-## [5,]  29.920359  -2.856232 -19.563603 -6.007014 -3.429312
-## [6,] -12.540727 -19.144574  -7.048747  4.729128 -2.173686</code></pre>
+<pre><code>##             PC1        PC2        PC3       PC4        PC5
+## [1,] -13.288778   8.553599  -6.181866  1.116066 -5.5173334
+## [2,]  -5.507855  10.950377  -9.354874 -8.201130 -6.5985479
+## [3,] -17.635972   6.109277 -17.902844 -4.392906 -0.6436768
+## [4,]  -2.702749  11.361153 -17.414077  3.715791 -4.1595954
+## [5,]  29.920359  -2.856232 -19.563603  6.007014 -3.4293127
+## [6,] -12.540727 -19.144574  -7.048747 -4.729128 -2.1736863</code></pre>
 <p>Merge</p>
 <pre class="r"><code>targets &lt;- as.data.frame(colData(methData))
 targets &lt;- cbind(
@@ -1622,20 +1621,20 @@ n &lt;- ncol(design) + fit$df.residual</code></pre>
 <pre><code>## threshold = -5.4009
 ## Starting values:
 ## p0 = 1.0000, p1 = 0.0000, p2 = 0.0000
-## mu0 = 0.0475, mu1 = 5.9297, mu2 = -5.8348
-## sigma0 = 1.0891, sigma1 = 1.0891, sigma2 = 1.0891</code></pre>
+## mu0 = 0.0511, mu1 = 5.9471, mu2 = -5.8449
+## sigma0 = 1.0917, sigma1 = 1.0917, sigma2 = 1.0917</code></pre>
 <pre class="r"><code>bc</code></pre>
 <pre><code>## Bacon-object containing 1 set(s) of 755777 test-statistics.
-## ...estimated bias: 0.052.
+## ...estimated bias: 0.054.
 ## ...estimated inflation: 1.1.
 ## 
 ## Empirical null estimates are based on 5000 iterations with a burnin-period of 2000.</code></pre>
 <pre class="r"><code>bacon::inflation(bc)</code></pre>
 <pre><code>##  sigma.0 
-## 1.079422</code></pre>
+## 1.081412</code></pre>
 <pre class="r"><code>bacon::bias(bc)</code></pre>
 <pre><code>##       mu.0 
-## 0.05174053</code></pre>
+## 0.05419486</code></pre>
 <p>Save bacon adjusted p-values and t statistics</p>
 <pre class="r"><code>pval &lt;- bacon::pval(bc)
 tstat &lt;- bacon::tstat(bc)</code></pre>
@@ -1648,20 +1647,20 @@ tstat &lt;- bacon::tstat(bc)</code></pre>
 <pre><code>## threshold = -5.4009
 ## Starting values:
 ## p0 = 1.0000, p1 = 0.0000, p2 = 0.0000
-## mu0 = -0.0040, mu1 = 5.4455, mu2 = -5.4534
-## sigma0 = 1.0090, sigma1 = 1.0090, sigma2 = 1.0090</code></pre>
+## mu0 = -0.0029, mu1 = 5.4493, mu2 = -5.4550
+## sigma0 = 1.0095, sigma1 = 1.0095, sigma2 = 1.0095</code></pre>
 <pre class="r"><code>bc</code></pre>
 <pre><code>## Bacon-object containing 1 set(s) of 755777 test-statistics.
-## ...estimated bias: 8e-04.
+## ...estimated bias: 0.0011.
 ## ...estimated inflation: 1.
 ## 
 ## Empirical null estimates are based on 5000 iterations with a burnin-period of 2000.</code></pre>
 <pre class="r"><code>bacon::inflation(bc)</code></pre>
 <pre><code>##  sigma.0 
-## 1.005995</code></pre>
+## 1.006378</code></pre>
 <pre class="r"><code>bacon::bias(bc)</code></pre>
 <pre><code>##        mu.0 
-## 0.000795683</code></pre>
+## 0.001070451</code></pre>
 <hr />
 </div>
 <div id="output" class="section level1">
@@ -1680,12 +1679,12 @@ tstat &lt;- bacon::tstat(bc)</code></pre>
 
 print(paste0(&quot;There are &quot;, 
              nrow(top_cpgs), &quot; significant CpGs in muscle.&quot;))</code></pre>
-<pre><code>## [1] &quot;There are 401 significant CpGs in muscle.&quot;</code></pre>
+<pre><code>## [1] &quot;There are 354 significant CpGs in muscle.&quot;</code></pre>
 <pre class="r"><code>print(paste0(nrow(top_cpgs %&gt;% filter(beta&lt;0)), 
              &quot; of these are hypomethylated, and &quot;, 
              nrow(top_cpgs %&gt;% filter(beta&gt;0)), 
              &quot; are hypermethylated.&quot;))</code></pre>
-<pre><code>## [1] &quot;349 of these are hypomethylated, and 52 are hypermethylated.&quot;</code></pre>
+<pre><code>## [1] &quot;310 of these are hypomethylated, and 44 are hypermethylated.&quot;</code></pre>
 <hr />
 </div>
 <div id="save" class="section level1">

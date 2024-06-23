@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 15: Nuclei proportion changes in muscle</h1>
-<h4 class="date">Compiled: June 22, 2024</h4>
+<h4 class="date">Compiled: June 23, 2024</h4>
 
 </div>
 
@@ -1549,8 +1549,7 @@ colnames(deconv) &lt;- c(&quot;join&quot;, &quot;cc_musc_slowSM&quot;, &quot;cc_
 <p>Make covariates factors</p>
 <pre class="r"><code>targets$timepoint &lt;- as.factor(targets$timepoint)
 targets$sex &lt;- as.factor(targets$sex)
-targets$smoke &lt;- as.factor(targets$smoke)
-targets$IOP2_ID &lt;- as.factor(targets$IOP2_ID)</code></pre>
+targets$smoke &lt;- as.factor(targets$smoke)</code></pre>
 <p>Save</p>
 <pre class="r"><code>colData(methData) &lt;- DataFrame(targets)
 save(targets, file='../GOTO_Data/GOTO_targets-filtered.Rdata')

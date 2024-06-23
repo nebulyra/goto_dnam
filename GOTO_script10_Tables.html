@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 10: Create descriptive tables</h1>
-<h4 class="date">Compiled: June 21, 2024</h4>
+<h4 class="date">Compiled: June 23, 2024</h4>
 
 </div>
 
@@ -1539,12 +1539,12 @@ load('../GOTO_Data/GOTO_RGset-filtered.Rdata')</code></pre>
 <div id="combine" class="section level1">
 <h1>Combine</h1>
 <p>Pheno variables to numeric</p>
-<pre class="r"><code>pheno_data$age &lt;- as.numeric(pheno_data$age)
+<pre class="r"><code>pheno_data$IOP2_ID &lt;- as.factor(pheno_data$IOP2_ID)
+pheno_data$age &lt;- as.numeric(pheno_data$age)
 pheno_data$sex &lt;- ifelse(pheno_data$sex == 'male', 0, 1)
 pheno_data$bmi &lt;- as.numeric(pheno_data$bmi)</code></pre>
 <p>Targets ID to double</p>
-<pre class="r"><code>targets$IOP2_ID &lt;- as.numeric(as.character(targets$IOP2_ID))
-targets$timepoint &lt;- ifelse(targets$timepoint == 'after', 1, 0)
+<pre class="r"><code>targets$timepoint &lt;- ifelse(targets$timepoint == 'after', 1, 0)
 targets &lt;- targets %&gt;% dplyr::select(-age, -sex, -bmi)
 
 targets &lt;- left_join(targets, 
@@ -1555,7 +1555,7 @@ targets &lt;- left_join(targets,
 
 colData(methData) &lt;- DataFrame(targets)
 save(methData,
-     file='../GOTO_Data/Processing/GOTO_methData-filtered.Rdata')
+     file='../GOTO_Data/GOTO_methData-filtered.Rdata')
 
 colData(RGset) &lt;- DataFrame(targets)
 save(RGset,
