@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 37: DMRs in blood</h1>
-<h4 class="date">Compiled: June 19, 2024</h4>
+<h4 class="date">Compiled: June 21, 2024</h4>
 
 </div>
 
@@ -1525,22 +1525,22 @@ library(tidyverse)</code></pre>
 <h1>Load data</h1>
 <pre class="r"><code>load(&quot;../GOTO_Data/GOTO_results-top-blood.Rdata&quot;)
 head(top_cpgs)</code></pre>
-<pre><code>##                   cpg         beta           SE            p    padj_fdr
-## cg16209776 cg16209776 -0.011702520 0.0023037182 2.802869e-09 0.001059172
-## cg23961638 cg23961638 -0.002938909 0.0005754124 2.301968e-09 0.001059172
-## cg25040733 cg25040733  0.012057441 0.0024292987 8.996715e-09 0.001359902
-## cg13479371 cg13479371 -0.005003661 0.0010128031 7.450920e-09 0.001359902
-## cg26201957 cg26201957 -0.027834573 0.0056150131 6.633718e-09 0.001359902
-## cg08769073 cg08769073  0.008630337 0.0017640579 1.462061e-08 0.001841653
+<pre><code>##                   cpg         beta           SE            p     padj_fdr
+## cg16209776 cg16209776 -0.011702520 0.0023037182 2.512802e-09 0.0009495591
+## cg23961638 cg23961638 -0.002938909 0.0005754124 2.061351e-09 0.0009495591
+## cg25040733 cg25040733  0.012057441 0.0024292987 8.118415e-09 0.0012271422
+## cg13479371 cg13479371 -0.005003661 0.0010128031 6.718311e-09 0.0012271422
+## cg26201957 cg26201957 -0.027834573 0.0056150131 5.977380e-09 0.0012271422
+## cg08769073 cg08769073  0.008630337 0.0017640579 1.323098e-08 0.0016666121
 ##                    t   N
-## cg16209776 -5.942746 196
-## cg23961638 -5.974924 194
-## cg25040733  5.748634 194
-## cg13479371 -5.780432 196
-## cg26201957 -5.799944 195
-## cg08769073  5.665957 196</code></pre>
+## cg16209776 -5.960622 196
+## cg23961638 -5.992897 194
+## cg25040733  5.765981 194
+## cg13479371 -5.797818 196
+## cg26201957 -5.817389 195
+## cg08769073  5.683055 196</code></pre>
 <pre class="r"><code>dim(top_cpgs)</code></pre>
-<pre><code>## [1] 401   7</code></pre>
+<pre><code>## [1] 441   7</code></pre>
 <p>Annotation</p>
 <p><code>manifest_hg19</code> (fetched on 4/4/2023 from <a href="https://zwdzwd.github.io/InfiniumAnnotation" class="uri">https://zwdzwd.github.io/InfiniumAnnotation</a>)</p>
 <ul>
@@ -1624,7 +1624,7 @@ write_tsv(homer, file=&quot;../GOTO_Data/Homer/GOTO_Homer-Blood.tsv&quot;)</code
 <pre class="r"><code>print(paste0(&quot;There are &quot;, 
              nrow(top_cpgs), 
              &quot; CpGs significant at 5% FDR level&quot;))</code></pre>
-<pre><code>## [1] &quot;There are 401 CpGs significant at 5% FDR level&quot;</code></pre>
+<pre><code>## [1] &quot;There are 441 CpGs significant at 5% FDR level&quot;</code></pre>
 <pre class="r"><code>cpg_top &lt;- top_cpgs$cpg</code></pre>
 <p>Save gene locations (saved previously)</p>
 <pre class="r"><code>txdb &lt;- makeTxDbFromEnsembl(organism = &quot;Homo sapiens&quot;,
@@ -1666,7 +1666,7 @@ gene_range</code></pre>
         ))
 
 cpg_range</code></pre>
-<pre><code>## GRanges object with 401 ranges and 0 metadata columns:
+<pre><code>## GRanges object with 441 ranges and 0 metadata columns:
 ##              seqnames              ranges strand
 ##                 &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
 ##   cg16209776       12   63177893-63177895      *
@@ -1675,11 +1675,11 @@ cpg_range</code></pre>
 ##   cg13479371       18   72530930-72530932      *
 ##   cg26201957       11   82601012-82601014      *
 ##          ...      ...                 ...    ...
-##   cg04919810       20   35917042-35917044      *
-##   cg08366060       11   75797824-75797826      *
-##   cg10635640        6 105612345-105612347      *
-##   cg17824132        3   66457840-66457842      *
-##   cg04422164       13   30815712-30815714      *
+##   cg24562746       19   44598111-44598113      *
+##   cg15400818        5   89767373-89767375      *
+##   cg24899571       11 133938809-133938811      *
+##   cg25828097        2   27656864-27656866      *
+##   cg25967669       11     8430495-8430497      *
 ##   -------
 ##   seqinfo: 23 sequences from an unspecified genome; no seqlengths</code></pre>
 <p>Initialize a distance matrix</p>
@@ -1700,7 +1700,7 @@ cpg_range</code></pre>
 }
 
 dim(distance.matrix)</code></pre>
-<pre><code>## [1] 302587    401</code></pre>
+<pre><code>## [1] 302587    441</code></pre>
 <pre class="r"><code>distance.matrix &lt;- as.data.frame(distance.matrix)
 colnames(distance.matrix) &lt;- names(cpg_range)
 distance.matrix$gene &lt;- names(gene_range)</code></pre>

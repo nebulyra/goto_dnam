@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 39: Differentially expressed genes in blood</h1>
-<h4 class="date">Compiled: June 19, 2024</h4>
+<h4 class="date">Compiled: June 21, 2024</h4>
 
 </div>
 
@@ -1529,7 +1529,7 @@ library(MASS)</code></pre>
 <pre class="r"><code>print(paste0(&quot;There are &quot;, 
              nrow(top_cpgs), 
              &quot; CpGs significant at 5% FDR level&quot;))</code></pre>
-<pre><code>## [1] &quot;There are 401 CpGs significant at 5% FDR level&quot;</code></pre>
+<pre><code>## [1] &quot;There are 441 CpGs significant at 5% FDR level&quot;</code></pre>
 <pre class="r"><code>cpg_top &lt;- top_cpgs$cpg</code></pre>
 <p>Save gene locations (saved previously)</p>
 <pre class="r"><code>txdb &lt;- makeTxDbFromEnsembl(organism = &quot;Homo sapiens&quot;,
@@ -1571,14 +1571,14 @@ gene_range</code></pre>
         ))
 
 cpg_range</code></pre>
-<pre><code>## GRanges object with 401 ranges and 0 metadata columns:
+<pre><code>## GRanges object with 441 ranges and 0 metadata columns:
 ##              seqnames              ranges strand
 ##                 &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt;
-##   cg04422164       13   30815712-30815714      *
-##   cg06885583       11   10715444-10715446      *
-##   cg04919810       20   35917042-35917044      *
-##   cg08366060       11   75797824-75797826      *
-##   cg10635640        6 105612345-105612347      *
+##   cg25967669       11     8430495-8430497      *
+##   cg24899571       11 133938809-133938811      *
+##   cg25828097        2   27656864-27656866      *
+##   cg27508416        1   42922518-42922520      *
+##   cg23812665        1 117061544-117061546      *
 ##          ...      ...                 ...    ...
 ##   cg25040733        5 141704733-141704735      *
 ##   cg13479371       18   72530930-72530932      *
@@ -1605,7 +1605,7 @@ cpg_range</code></pre>
 }
 
 dim(distance.matrix)</code></pre>
-<pre><code>## [1] 302587    401</code></pre>
+<pre><code>## [1] 302587    441</code></pre>
 <pre class="r"><code>distance.matrix &lt;- as.data.frame(distance.matrix)
 colnames(distance.matrix) &lt;- names(cpg_range)
 distance.matrix$gene &lt;- names(gene_range)</code></pre>
@@ -1621,7 +1621,7 @@ distance.matrix$gene &lt;- names(gene_range)</code></pre>
 })
 gene_list[[1]]</code></pre>
 <pre><code>##          cpg        gene_ens
-## 1 cg04422164 ENSG00000102781</code></pre>
+## 1 cg25967669 ENSG00000130413</code></pre>
 <p>Save gene symbols</p>
 <pre class="r"><code>ens2gene &lt;- cinaR::grch37</code></pre>
 <p>Bind</p>
@@ -1644,13 +1644,13 @@ sym &lt;- ens2gene$symbol[match(df$gene_ens,
 df$gene &lt;- sym
 
 head(df)</code></pre>
-<pre><code>##          cpg        gene_ens    gene
-## 1 cg04422164 ENSG00000102781 KATNAL1
-## 2 cg06885583 ENSG00000072952   MRVI1
-## 3 cg06885583 ENSG00000198730    CTR9
-## 4 cg04919810 ENSG00000101363  MANBAL
-## 5 cg04919810 ENSG00000118702    GHRH
-## 6 cg04919810 ENSG00000118705    RPN2</code></pre>
+<pre><code>##          cpg        gene_ens   gene
+## 1 cg25967669 ENSG00000130413  STK33
+## 2 cg24899571 ENSG00000151503 NCAPD3
+## 3 cg24899571 ENSG00000166086   JAM3
+## 4 cg25828097 ENSG00000084734   GCKR
+## 5 cg25828097 ENSG00000115207 GTF3C2
+## 6 cg25828097 ENSG00000115211 EIF2B4</code></pre>
 <p>Save</p>
 <pre class="r"><code>save(df, file='../GOTO_Data/DEGs/Blood-100kb.Rdata')</code></pre>
 <hr />
@@ -1659,7 +1659,7 @@ head(df)</code></pre>
 <h1>Lookup</h1>
 <pre class="r"><code>print(paste0(&quot;There are &quot;, length(unique(df$gene_ens)), &quot; unique genes within 100kb of &quot;,
              length(unique(df$cpg)), &quot; CpGs.&quot;))</code></pre>
-<pre><code>## [1] &quot;There are 1428 unique genes within 100kb of 366 CpGs.&quot;</code></pre>
+<pre><code>## [1] &quot;There are 1588 unique genes within 100kb of 403 CpGs.&quot;</code></pre>
 <p>Read in DEG results</p>
 <pre class="r"><code>deg &lt;- read.table('../GOTO_Data/DEGs/DEGs_blood_postprandial_combined_new.txt')</code></pre>
 <p>Filter for those within 100kb</p>
@@ -1674,29 +1674,30 @@ head(deg)</code></pre>
 ## ENSG00000111321  0.15518002 6.660071  4.658430 6.433843e-06 0.005025368
 ## ENSG00000118454 -0.21060787 3.027824 -4.336661 2.482431e-05 0.009098934
 ## ENSG00000054116  0.06261219 5.856389  4.292615 2.970455e-05 0.010506444
+## ENSG00000105438  0.09700830 6.254904  4.259056 3.402721e-05 0.011185149
 ## ENSG00000158793  0.07877899 5.187106  4.109571 6.174264e-05 0.013767679
-## ENSG00000231925  0.12780165 9.300647  3.970359 1.060483e-04 0.017738916
 ##                        B         fdr p.adjust.b GENE.SYMBOL        padj
-## ENSG00000103056 5.223525 0.002374964 0.02136555       SMPD3 0.001263370
-## ENSG00000111321 3.627082 0.005025368 0.12046084        LTBR 0.003564349
-## ENSG00000118454 2.373353 0.009098934 0.46411539    ANKRD13C 0.008228161
-## ENSG00000054116 2.221129 0.010506444 0.55529689     TRAPPC3 0.008228161
-## ENSG00000158793 1.561440 0.013767679 1.00000000        NIT1 0.013682169
-## ENSG00000231925 1.075391 0.017738916 1.00000000       TAPBP 0.015719869</code></pre>
+## ENSG00000103056 5.223525 0.002374964 0.02136555       SMPD3 0.001407039
+## ENSG00000111321 3.627082 0.005025368 0.12046084        LTBR 0.003969681
+## ENSG00000118454 2.373353 0.009098934 0.46411539    ANKRD13C 0.008397916
+## ENSG00000054116 2.221129 0.010506444 0.55529689     TRAPPC3 0.008397916
+## ENSG00000105438 2.095440 0.011185149 0.63596861      KDELR1 0.008397916
+## ENSG00000158793 1.561440 0.013767679 1.00000000        NIT1 0.012698403</code></pre>
 <pre class="r"><code>unique(deg$GENE.SYMBOL)</code></pre>
-<pre><code>##  [1] &quot;SMPD3&quot;    &quot;LTBR&quot;     &quot;ANKRD13C&quot; &quot;TRAPPC3&quot;  &quot;NIT1&quot;     &quot;TAPBP&quot;   
-##  [7] &quot;ZNF672&quot;   &quot;KIAA1143&quot; &quot;METTL15&quot;  &quot;TUBA1B&quot;   &quot;TFEB&quot;     &quot;TPP2&quot;    
-## [13] &quot;TNFRSF1A&quot; &quot;CLASP2&quot;   &quot;FAM133B&quot;  &quot;GTF2H3&quot;   &quot;CSNK1G3&quot;  &quot;JUNB&quot;    
-## [19] &quot;MNAT1&quot;    &quot;TRAF7&quot;    &quot;CNGB1&quot;    &quot;ATF5&quot;     &quot;TUBE1&quot;    &quot;GADD45B&quot; 
-## [25] &quot;PSEN2&quot;    &quot;USP21&quot;    &quot;ZFPL1&quot;    &quot;PPP1R11&quot;  &quot;POLDIP3&quot;  &quot;CEP120&quot;  
-## [31] &quot;LMAN2&quot;    &quot;BCL3&quot;     &quot;C11orf68&quot; &quot;USB1&quot;     &quot;UBE2L3&quot;   &quot;C6orf106&quot;
-## [37] &quot;TTC17&quot;    &quot;ANKRD46&quot;  &quot;PRCC&quot;     &quot;DEDD&quot;     &quot;B3GALT4&quot;  &quot;CD74&quot;    
-## [43] &quot;MUM1&quot;     &quot;MAST1&quot;    &quot;GMPPA&quot;    &quot;SAPCD1&quot;   &quot;DNASE1L2&quot; &quot;CSNK2B&quot;  
-## [49] &quot;POLA2&quot;    &quot;ATG2B&quot;    &quot;RHOA&quot;     &quot;MPV17L2&quot;  &quot;CYB5R3&quot;   &quot;ZBTB7B&quot;  
-## [55] &quot;ARHGAP5&quot;  &quot;WDR5&quot;     &quot;NFKBIB&quot;   &quot;SNX14&quot;    &quot;SMC2&quot;     &quot;C10orf54&quot;
-## [61] &quot;NELFB&quot;    &quot;STT3B&quot;    &quot;TRIP13&quot;   &quot;PURB&quot;     &quot;TMEM175&quot;  &quot;NEU1&quot;    
-## [67] &quot;RNASEH2A&quot; &quot;C2&quot;       &quot;ZNF350&quot;   &quot;TLR5&quot;     &quot;ICAM1&quot;    &quot;GPSM3&quot;   
-## [73] &quot;ZNF649&quot;   &quot;VRK3&quot;</code></pre>
+<pre><code>##  [1] &quot;SMPD3&quot;    &quot;LTBR&quot;     &quot;ANKRD13C&quot; &quot;TRAPPC3&quot;  &quot;KDELR1&quot;   &quot;NIT1&quot;    
+##  [7] &quot;TAPBP&quot;    &quot;ZNF672&quot;   &quot;KIAA1143&quot; &quot;METTL15&quot;  &quot;TUBA1B&quot;   &quot;TFEB&quot;    
+## [13] &quot;TPP2&quot;     &quot;TNFRSF1A&quot; &quot;CLASP2&quot;   &quot;FAM133B&quot;  &quot;GTF2H3&quot;   &quot;CSNK1G3&quot; 
+## [19] &quot;JUNB&quot;     &quot;MNAT1&quot;    &quot;TRAF7&quot;    &quot;AIMP1&quot;    &quot;CNGB1&quot;    &quot;ATF5&quot;    
+## [25] &quot;TUBE1&quot;    &quot;GADD45B&quot;  &quot;PSEN2&quot;    &quot;USP21&quot;    &quot;ZFPL1&quot;    &quot;PPP1R11&quot; 
+## [31] &quot;POLDIP3&quot;  &quot;CEP120&quot;   &quot;LMAN2&quot;    &quot;HIBADH&quot;   &quot;BCL3&quot;     &quot;C11orf68&quot;
+## [37] &quot;USB1&quot;     &quot;UBE2L3&quot;   &quot;C6orf106&quot; &quot;TTC17&quot;    &quot;ANKRD46&quot;  &quot;FAM122A&quot; 
+## [43] &quot;PRCC&quot;     &quot;DEDD&quot;     &quot;B3GALT4&quot;  &quot;CD74&quot;     &quot;MUM1&quot;     &quot;MAST1&quot;   
+## [49] &quot;GMPPA&quot;    &quot;SAPCD1&quot;   &quot;DNASE1L2&quot; &quot;CTSA&quot;     &quot;CSNK2B&quot;   &quot;POLA2&quot;   
+## [55] &quot;ATG2B&quot;    &quot;RHOA&quot;     &quot;MPV17L2&quot;  &quot;CYB5R3&quot;   &quot;ZBTB7B&quot;   &quot;ARHGAP5&quot; 
+## [61] &quot;WDR5&quot;     &quot;NFKBIB&quot;   &quot;SNX14&quot;    &quot;SMC2&quot;     &quot;C10orf54&quot; &quot;NELFB&quot;   
+## [67] &quot;STT3B&quot;    &quot;ACOT8&quot;    &quot;TRIP13&quot;   &quot;PURB&quot;     &quot;TMEM175&quot;  &quot;TBCK&quot;    
+## [73] &quot;NEU1&quot;     &quot;RNASEH2A&quot; &quot;C2&quot;       &quot;ZNF350&quot;   &quot;TLR5&quot;     &quot;ICAM1&quot;   
+## [79] &quot;TBC1D22A&quot; &quot;GPSM3&quot;    &quot;GBA2&quot;     &quot;ZNF649&quot;   &quot;VRK3&quot;</code></pre>
 <p>Save</p>
 <pre class="r"><code>save(deg, file='../GOTO_Data/DEGs/Blood-DEG.Rdata')</code></pre>
 <hr />

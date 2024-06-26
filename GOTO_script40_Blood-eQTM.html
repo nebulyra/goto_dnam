@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 40: eQTMs in blood</h1>
-<h4 class="date">Compiled: June 19, 2024</h4>
+<h4 class="date">Compiled: June 21, 2024</h4>
 
 </div>
 
@@ -1526,13 +1526,13 @@ library(lmerTest)</code></pre>
 <p>Load <code>df</code> which maps CpGs to genes within 100kb</p>
 <pre class="r"><code>load('../GOTO_Data/DEGs/Blood-100kb.Rdata')
 head(df)</code></pre>
-<pre><code>##          cpg        gene_ens    gene
-## 1 cg04422164 ENSG00000102781 KATNAL1
-## 2 cg06885583 ENSG00000072952   MRVI1
-## 3 cg06885583 ENSG00000198730    CTR9
-## 4 cg04919810 ENSG00000101363  MANBAL
-## 5 cg04919810 ENSG00000118702    GHRH
-## 6 cg04919810 ENSG00000118705    RPN2</code></pre>
+<pre><code>##          cpg        gene_ens   gene
+## 1 cg25967669 ENSG00000130413  STK33
+## 2 cg24899571 ENSG00000151503 NCAPD3
+## 3 cg24899571 ENSG00000166086   JAM3
+## 4 cg25828097 ENSG00000084734   GCKR
+## 5 cg25828097 ENSG00000115207 GTF3C2
+## 6 cg25828097 ENSG00000115211 EIF2B4</code></pre>
 <p>Load results of DEG analysis</p>
 <pre class="r"><code>load('../GOTO_Data/DEGs/Blood-DEG.Rdata')</code></pre>
 <p>Merge</p>
@@ -1543,21 +1543,21 @@ deg &lt;- deg %&gt;%
                 deg_padj = padj)
 head(deg)</code></pre>
 <pre><code>##                        gene_ens       logFC        deg_p    deg_padj
-## ENSG00000103056 ENSG00000103056  0.20733606 1.140226e-06 0.001263370
-## ENSG00000111321 ENSG00000111321  0.15518002 6.433843e-06 0.003564349
-## ENSG00000118454 ENSG00000118454 -0.21060787 2.482431e-05 0.008228161
-## ENSG00000054116 ENSG00000054116  0.06261219 2.970455e-05 0.008228161
-## ENSG00000158793 ENSG00000158793  0.07877899 6.174264e-05 0.013682169
-## ENSG00000231925 ENSG00000231925  0.12780165 1.060483e-04 0.015719869</code></pre>
+## ENSG00000103056 ENSG00000103056  0.20733606 1.140226e-06 0.001407039
+## ENSG00000111321 ENSG00000111321  0.15518002 6.433843e-06 0.003969681
+## ENSG00000118454 ENSG00000118454 -0.21060787 2.482431e-05 0.008397916
+## ENSG00000054116 ENSG00000054116  0.06261219 2.970455e-05 0.008397916
+## ENSG00000105438 ENSG00000105438  0.09700830 3.402721e-05 0.008397916
+## ENSG00000158793 ENSG00000158793  0.07877899 6.174264e-05 0.012698403</code></pre>
 <pre class="r"><code>df &lt;- right_join(df, deg, by='gene_ens')
 head(df)</code></pre>
-<pre><code>##          cpg        gene_ens    gene       logFC        deg_p   deg_padj
-## 1 cg12729179 ENSG00000020426   MNAT1 -0.16054735 0.0002850401 0.01590088
-## 2 cg21095811 ENSG00000066739   ATG2B -0.08609413 0.0016979299 0.03762613
-## 3 cg23960750 ENSG00000160953    MUM1  0.07765318 0.0013615511 0.03504691
-## 4 cg09222461 ENSG00000100852 ARHGAP5 -0.18229641 0.0019510953 0.03930570
-## 5 cg25603409 ENSG00000105053    VRK3  0.08234324 0.0033280650 0.04983103
-## 6 cg25603409 ENSG00000169136    ATF5  0.16297178 0.0004146239 0.01965235</code></pre>
+<pre><code>##          cpg        gene_ens     gene       logFC        deg_p   deg_padj
+## 1 cg20567361 ENSG00000106049   HIBADH -0.10676116 0.0007794506 0.02828947
+## 2 cg00230271 ENSG00000145348     TBCK -0.09904288 0.0026457355 0.04509699
+## 3 cg00230271 ENSG00000164022    AIMP1 -0.15377210 0.0002962625 0.01661763
+## 4 cg08943940 ENSG00000213654    GPSM3  0.07802996 0.0030245519 0.04665371
+## 5 cg27422762 ENSG00000187866  FAM122A -0.05978154 0.0010766863 0.03163407
+## 6 cg08775556 ENSG00000054611 TBC1D22A  0.07848708 0.0030112452 0.04665371</code></pre>
 <hr />
 </div>
 <div id="dnam-data" class="section level1">
@@ -1573,7 +1573,7 @@ rownames(betas) &lt;- beta_rows</code></pre>
 <p>Save only CpGs to be tested</p>
 <pre class="r"><code>betas &lt;- betas %&gt;% dplyr::select(any_of(df$cpg))
 dim(betas)</code></pre>
-<pre><code>## [1] 196  62</code></pre>
+<pre><code>## [1] 196  70</code></pre>
 <hr />
 </div>
 <div id="phenotype-data" class="section level1">
@@ -1648,7 +1648,7 @@ dim(exp_df)</code></pre>
 <pre class="r"><code>dim(targets)</code></pre>
 <pre><code>## [1] 196   9</code></pre>
 <pre class="r"><code>dim(betas)</code></pre>
-<pre><code>## [1] 196  62</code></pre>
+<pre><code>## [1] 196  70</code></pre>
 <pre class="r"><code>dim(exp_df)</code></pre>
 <pre><code>## [1]   196 56519</code></pre>
 <pre class="r"><code>save(exp_df, file='../GOTO_Data/DEGs/exp_df_blood.Rdata')</code></pre>
@@ -1657,7 +1657,7 @@ dim(exp_df)</code></pre>
 xtabs(~check)</code></pre>
 <pre><code>## check
 ## TRUE 
-##   78</code></pre>
+##   88</code></pre>
 <pre class="r"><code>print(paste0('We cannot test the following CpG gene pairs'))</code></pre>
 <pre><code>## [1] &quot;We cannot test the following CpG gene pairs&quot;</code></pre>
 <pre class="r"><code>df[!check,]</code></pre>
@@ -1667,8 +1667,8 @@ xtabs(~check)</code></pre>
 <p>Save genes we will check</p>
 <pre class="r"><code>av_genes &lt;- df$gene_ens
 head(av_genes)</code></pre>
-<pre><code>## [1] &quot;ENSG00000020426&quot; &quot;ENSG00000066739&quot; &quot;ENSG00000160953&quot; &quot;ENSG00000100852&quot;
-## [5] &quot;ENSG00000105053&quot; &quot;ENSG00000169136&quot;</code></pre>
+<pre><code>## [1] &quot;ENSG00000106049&quot; &quot;ENSG00000145348&quot; &quot;ENSG00000164022&quot; &quot;ENSG00000213654&quot;
+## [5] &quot;ENSG00000187866&quot; &quot;ENSG00000054611&quot;</code></pre>
 <p>Filter covariates and genes</p>
 <pre class="r"><code>goto_exp &lt;- goto_exp %&gt;%  
   dplyr::select(IOP2_ID, 
@@ -1685,7 +1685,7 @@ head(av_genes)</code></pre>
   dplyr::select(ID, Basename)</code></pre>
 <pre class="r"><code>exp_df &lt;- inner_join(ID_list, goto_exp, by = 'ID')
 dim(exp_df)</code></pre>
-<pre><code>## [1] 162  79</code></pre>
+<pre><code>## [1] 162  88</code></pre>
 <hr />
 </div>
 <div id="ordering-and-filtering" class="section level1">
@@ -1711,12 +1711,12 @@ dim(targets)</code></pre>
 <pre class="r"><code>betas &lt;- betas[rownames(betas) %in% targets$Basename, ]
 betas &lt;- betas[order(rownames(betas)), ]
 dim(betas)</code></pre>
-<pre><code>## [1] 162  62</code></pre>
+<pre><code>## [1] 162  70</code></pre>
 <p>Order expression data frame</p>
 <pre class="r"><code>exp_df &lt;- exp_df[exp_df$Basename %in% targets$Basename, ]
 exp_df &lt;- exp_df[order(exp_df$Basename), ]
 dim(exp_df)</code></pre>
-<pre><code>## [1] 162  79</code></pre>
+<pre><code>## [1] 162  88</code></pre>
 <p>Save</p>
 <pre class="r"><code>save(betas, exp_df, targets, df,
      file='../GOTO_Data/eQTM/all_eQTMobjects-blood.Rdata')</code></pre>
@@ -1764,6 +1764,7 @@ dim(exp_df)</code></pre>
 ## boundary (singular) fit: see help('isSingular')
 ## boundary (singular) fit: see help('isSingular')
 ## boundary (singular) fit: see help('isSingular')
+## boundary (singular) fit: see help('isSingular')
 ## boundary (singular) fit: see help('isSingular')</code></pre>
 <p>Adjust p-values</p>
 <pre class="r"><code>out$padj &lt;- p.adjust(out$p, method='fdr')</code></pre>
@@ -1777,12 +1778,12 @@ dim(exp_df)</code></pre>
 ## 5 cg23343408     TLR5 ENSG00000187554  0.005186785 0.0021365309 1.645720e-02
 ## 6 cg17707984   SAPCD1 ENSG00000228727 -0.001408493 0.0005887660 1.805402e-02
 ##           padj
-## 1 2.892167e-05
-## 2 6.688653e-05
-## 3 7.843011e-03
-## 4 6.295072e-02
-## 5 2.347023e-01
-## 6 2.347023e-01</code></pre>
+## 1 3.262958e-05
+## 2 7.546173e-05
+## 3 8.848525e-03
+## 4 7.102133e-02
+## 5 2.647923e-01
+## 6 2.647923e-01</code></pre>
 <pre class="r"><code>eqtm &lt;- out %&gt;% filter(padj &lt;= 0.05) %&gt;% 
   arrange(padj)</code></pre>
 <hr />
@@ -1796,13 +1797,13 @@ dim(exp_df)</code></pre>
 eqtm &lt;- inner_join(eqtm, df, by=c('cpg', 'gene'))
 eqtm</code></pre>
 <pre><code>##          cpg     gene      eqtm_es      eqtm_se       eqtm_p    eqtm_padj
-## 1 cg18032191     LTBR -0.019222108 0.0036034556 3.707907e-07 2.892167e-05
-## 2 cg18032191 TNFRSF1A -0.017629456 0.0035327616 1.715039e-06 6.688653e-05
-## 3 cg21095811    ATG2B -0.003572713 0.0009643526 3.016543e-04 7.843011e-03
+## 1 cg18032191     LTBR -0.019222108 0.0036034556 3.707907e-07 3.262958e-05
+## 2 cg18032191 TNFRSF1A -0.017629456 0.0035327616 1.715039e-06 7.546173e-05
+## 3 cg21095811    ATG2B -0.003572713 0.0009643526 3.016543e-04 8.848525e-03
 ##          gene_ens       logFC        deg_p    deg_padj
-## 1 ENSG00000111321  0.15518002 6.433843e-06 0.003564349
-## 2 ENSG00000067182  0.12251647 2.069650e-04 0.015719869
-## 3 ENSG00000066739 -0.08609413 1.697930e-03 0.037626127</code></pre>
+## 1 ENSG00000111321  0.15518002 6.433843e-06 0.003969681
+## 2 ENSG00000067182  0.12251647 2.069650e-04 0.016477654
+## 3 ENSG00000066739 -0.08609413 1.697930e-03 0.038095373</code></pre>
 <p>Save</p>
 <pre class="r"><code>save(out, eqtm, file='../GOTO_Data/eQTM/GOTO-blood_eQTM.Rdata')
 write_csv(eqtm, file='../GOTO_Data/Tables/ST20.csv')</code></pre>
@@ -1827,81 +1828,142 @@ write_csv(eqtm, file='../GOTO_Data/Tables/ST20.csv')</code></pre>
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats4    stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] lmerTest_3.1-3              lme4_1.1-30                
-##  [3] Matrix_1.5-4.1              SummarizedExperiment_1.24.0
-##  [5] MatrixGenerics_1.10.0       matrixStats_1.0.0          
-##  [7] AnnotationHub_3.2.2         BiocFileCache_2.2.1        
-##  [9] dbplyr_2.2.1                GenomicFeatures_1.46.5     
-## [11] AnnotationDbi_1.56.2        Biobase_2.58.0             
-## [13] GenomicRanges_1.46.1        GenomeInfoDb_1.34.9        
-## [15] IRanges_2.32.0              S4Vectors_0.36.2           
-## [17] BiocGenerics_0.44.0         forcats_0.5.2              
-## [19] stringr_1.5.0               dplyr_1.1.3                
-## [21] purrr_0.3.4                 readr_2.1.2                
-## [23] tidyr_1.2.1                 tibble_3.2.1               
-## [25] ggplot2_3.4.3               tidyverse_1.3.2            
-## [27] cinaR_0.2.3                 edgeR_3.40.2               
-## [29] limma_3.54.2                rmarkdown_2.16             
+##  [1] cinaR_0.2.3                                        
+##  [2] edgeR_3.40.2                                       
+##  [3] limma_3.54.2                                       
+##  [4] MASS_7.3-60                                        
+##  [5] ggpubr_0.4.0                                       
+##  [6] ggrepel_0.9.1                                      
+##  [7] lmerTest_3.1-3                                     
+##  [8] lme4_1.1-30                                        
+##  [9] Matrix_1.5-4.1                                     
+## [10] IlluminaHumanMethylation450kmanifest_0.4.0         
+## [11] IlluminaHumanMethylationEPICmanifest_0.3.0         
+## [12] FlowSorted.BloodExtended.EPIC_1.1.1                
+## [13] FlowSorted.Blood.EPIC_1.12.1                       
+## [14] IlluminaHumanMethylationEPICanno.ilm10b4.hg19_0.6.0
+## [15] nlme_3.1-162                                       
+## [16] quadprog_1.5-8                                     
+## [17] genefilter_1.76.0                                  
+## [18] ExperimentHub_2.2.1                                
+## [19] AnnotationHub_3.2.2                                
+## [20] BiocFileCache_2.2.1                                
+## [21] dbplyr_2.2.1                                       
+## [22] MuSiC_0.2.0                                        
+## [23] nnls_1.4                                           
+## [24] lubridate_1.9.2                                    
+## [25] DNAmArray_2.0.0                                    
+## [26] pls_2.8-2                                          
+## [27] FDb.InfiniumMethylation.hg19_2.2.0                 
+## [28] org.Hs.eg.db_3.14.0                                
+## [29] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2            
+## [30] GenomicFeatures_1.46.5                             
+## [31] AnnotationDbi_1.56.2                               
+## [32] minfi_1.40.0                                       
+## [33] bumphunter_1.36.0                                  
+## [34] locfit_1.5-9.8                                     
+## [35] iterators_1.0.14                                   
+## [36] foreach_1.5.2                                      
+## [37] Biostrings_2.62.0                                  
+## [38] XVector_0.34.0                                     
+## [39] SummarizedExperiment_1.24.0                        
+## [40] Biobase_2.58.0                                     
+## [41] MatrixGenerics_1.10.0                              
+## [42] matrixStats_1.0.0                                  
+## [43] GenomicRanges_1.46.1                               
+## [44] GenomeInfoDb_1.34.9                                
+## [45] IRanges_2.32.0                                     
+## [46] S4Vectors_0.36.2                                   
+## [47] BiocGenerics_0.44.0                                
+## [48] forcats_0.5.2                                      
+## [49] stringr_1.5.0                                      
+## [50] dplyr_1.1.3                                        
+## [51] purrr_0.3.4                                        
+## [52] readr_2.1.2                                        
+## [53] tidyr_1.2.1                                        
+## [54] tibble_3.2.1                                       
+## [55] ggplot2_3.4.3                                      
+## [56] tidyverse_1.3.2                                    
+## [57] cli_3.6.1                                          
+## [58] htmltools_0.5.5                                    
+## [59] rlang_1.1.1                                        
+## [60] rmarkdown_2.16                                     
 ## 
 ## loaded via a namespace (and not attached):
-##   [1] minqa_1.2.5                   googledrive_2.0.0            
-##   [3] colorspace_2.1-0              rjson_0.2.21                 
-##   [5] ellipsis_0.3.2                XVector_0.34.0               
-##   [7] fs_1.6.2                      rstudioapi_0.14              
-##   [9] bit64_4.0.5                   interactiveDisplayBase_1.32.0
-##  [11] fansi_1.0.4                   lubridate_1.9.2              
-##  [13] xml2_1.3.4                    splines_4.2.2                
-##  [15] codetools_0.2-19              cachem_1.0.8                 
-##  [17] knitr_1.43                    jsonlite_1.8.5               
-##  [19] nloptr_2.0.3                  Rsamtools_2.10.0             
-##  [21] broom_1.0.1                   png_0.1-8                    
-##  [23] shiny_1.7.2                   BiocManager_1.30.21          
-##  [25] compiler_4.2.2                httr_1.4.6                   
-##  [27] backports_1.4.1               assertthat_0.2.1             
-##  [29] fastmap_1.1.1                 gargle_1.5.0                 
-##  [31] cli_3.6.1                     later_1.3.1                  
-##  [33] htmltools_0.5.5               prettyunits_1.1.1            
-##  [35] tools_4.2.2                   gtable_0.3.3                 
-##  [37] glue_1.6.2                    GenomeInfoDbData_1.2.9       
-##  [39] rappdirs_0.3.3                Rcpp_1.0.10                  
-##  [41] cellranger_1.1.0              jquerylib_0.1.4              
-##  [43] vctrs_0.6.3                   Biostrings_2.62.0            
-##  [45] nlme_3.1-162                  rtracklayer_1.54.0           
-##  [47] xfun_0.39                     rvest_1.0.3                  
-##  [49] mime_0.12                     timechange_0.2.0             
-##  [51] lifecycle_1.0.3               restfulr_0.0.15              
-##  [53] XML_3.99-0.14                 googlesheets4_1.0.1          
-##  [55] MASS_7.3-60                   zlibbioc_1.44.0              
-##  [57] scales_1.2.1                  vroom_1.5.7                  
-##  [59] promises_1.2.0.1              hms_1.1.2                    
-##  [61] parallel_4.2.2                yaml_2.3.7                   
-##  [63] curl_5.0.1                    memoise_2.0.1                
-##  [65] sass_0.4.6                    biomaRt_2.50.3               
-##  [67] stringi_1.7.12                RSQLite_2.2.17               
-##  [69] BiocVersion_3.16.0            BiocIO_1.8.0                 
-##  [71] filelock_1.0.2                boot_1.3-28.1                
-##  [73] BiocParallel_1.32.6           rlang_1.1.1                  
-##  [75] pkgconfig_2.0.3               bitops_1.0-7                 
-##  [77] evaluate_0.21                 lattice_0.21-8               
-##  [79] GenomicAlignments_1.30.0      bit_4.0.5                    
-##  [81] tidyselect_1.2.0              magrittr_2.0.3               
-##  [83] R6_2.5.1                      generics_0.1.3               
-##  [85] DelayedArray_0.24.0           DBI_1.1.3                    
-##  [87] pillar_1.9.0                  haven_2.5.1                  
-##  [89] withr_2.5.0                   KEGGREST_1.34.0              
-##  [91] RCurl_1.98-1.12               modelr_0.1.9                 
-##  [93] crayon_1.5.2                  utf8_1.2.3                   
-##  [95] tzdb_0.4.0                    progress_1.2.2               
-##  [97] locfit_1.5-9.8                grid_4.2.2                   
-##  [99] readxl_1.4.1                  blob_1.2.4                   
-## [101] reprex_2.0.2                  digest_0.6.31                
-## [103] xtable_1.8-4                  numDeriv_2016.8-1.1          
-## [105] httpuv_1.6.11                 munsell_0.5.0                
-## [107] bslib_0.5.0</code></pre>
+##   [1] utf8_1.2.3                    tidyselect_1.2.0             
+##   [3] RSQLite_2.2.17                grid_4.2.2                   
+##   [5] BiocParallel_1.32.6           munsell_0.5.0                
+##   [7] codetools_0.2-19              preprocessCore_1.60.2        
+##   [9] withr_2.5.0                   colorspace_2.1-0             
+##  [11] filelock_1.0.2                highr_0.10                   
+##  [13] knitr_1.43                    rstudioapi_0.14              
+##  [15] ggsignif_0.6.3                labeling_0.4.2               
+##  [17] GenomeInfoDbData_1.2.9        MCMCpack_1.6-3               
+##  [19] farver_2.1.1                  bit64_4.0.5                  
+##  [21] rhdf5_2.42.1                  coda_0.19-4                  
+##  [23] vctrs_0.6.3                   generics_0.1.3               
+##  [25] xfun_0.39                     timechange_0.2.0             
+##  [27] R6_2.5.1                      illuminaio_0.40.0            
+##  [29] bitops_1.0-7                  rhdf5filters_1.10.1          
+##  [31] cachem_1.0.8                  reshape_0.8.9                
+##  [33] DelayedArray_0.24.0           assertthat_0.2.1             
+##  [35] vroom_1.5.7                   promises_1.2.0.1             
+##  [37] BiocIO_1.8.0                  scales_1.2.1                 
+##  [39] googlesheets4_1.0.1           gtable_0.3.3                 
+##  [41] mcmc_0.9-7                    MatrixModels_0.5-1           
+##  [43] splines_4.2.2                 rstatix_0.7.0                
+##  [45] rtracklayer_1.54.0            gargle_1.5.0                 
+##  [47] GEOquery_2.62.2               htm2txt_2.2.2                
+##  [49] broom_1.0.1                   abind_1.4-5                  
+##  [51] BiocManager_1.30.21           yaml_2.3.7                   
+##  [53] reshape2_1.4.4                modelr_0.1.9                 
+##  [55] backports_1.4.1               httpuv_1.6.11                
+##  [57] tools_4.2.2                   nor1mix_1.3-0                
+##  [59] ellipsis_0.3.2                jquerylib_0.1.4              
+##  [61] RColorBrewer_1.1-3            siggenes_1.68.0              
+##  [63] Rcpp_1.0.10                   plyr_1.8.8                   
+##  [65] sparseMatrixStats_1.10.0      progress_1.2.2               
+##  [67] zlibbioc_1.44.0               RCurl_1.98-1.12              
+##  [69] prettyunits_1.1.1             openssl_2.0.6                
+##  [71] haven_2.5.1                   fs_1.6.2                     
+##  [73] magrittr_2.0.3                data.table_1.14.8            
+##  [75] SparseM_1.81                  reprex_2.0.2                 
+##  [77] googledrive_2.0.0             mime_0.12                    
+##  [79] hms_1.1.2                     evaluate_0.21                
+##  [81] xtable_1.8-4                  XML_3.99-0.14                
+##  [83] mclust_6.0.0                  readxl_1.4.1                 
+##  [85] compiler_4.2.2                biomaRt_2.50.3               
+##  [87] crayon_1.5.2                  minqa_1.2.5                  
+##  [89] later_1.3.1                   tzdb_0.4.0                   
+##  [91] DBI_1.1.3                     rappdirs_0.3.3               
+##  [93] boot_1.3-28.1                 car_3.1-0                    
+##  [95] pkgconfig_2.0.3               GenomicAlignments_1.30.0     
+##  [97] numDeriv_2016.8-1.1           xml2_1.3.4                   
+##  [99] annotate_1.72.0               bslib_0.5.0                  
+## [101] rngtools_1.5.2                multtest_2.50.0              
+## [103] beanplot_1.3.1                rvest_1.0.3                  
+## [105] doRNG_1.8.6                   scrime_1.3.5                 
+## [107] digest_0.6.31                 base64_2.0.1                 
+## [109] cellranger_1.1.0              DelayedMatrixStats_1.16.0    
+## [111] restfulr_0.0.15               curl_5.0.1                   
+## [113] shiny_1.7.2                   Rsamtools_2.10.0             
+## [115] quantreg_5.94                 nloptr_2.0.3                 
+## [117] rjson_0.2.21                  lifecycle_1.0.3              
+## [119] jsonlite_1.8.5                Rhdf5lib_1.20.0              
+## [121] carData_3.0-5                 askpass_1.1                  
+## [123] fansi_1.0.4                   pillar_1.9.0                 
+## [125] lattice_0.21-8                KEGGREST_1.34.0              
+## [127] fastmap_1.1.1                 httr_1.4.6                   
+## [129] survival_3.5-5                interactiveDisplayBase_1.32.0
+## [131] glue_1.6.2                    png_0.1-8                    
+## [133] BiocVersion_3.16.0            bit_4.0.5                    
+## [135] stringi_1.7.12                sass_0.4.6                   
+## [137] HDF5Array_1.22.1              blob_1.2.4                   
+## [139] memoise_2.0.1</code></pre>
 <p>Clear</p>
 <pre class="r"><code>rm(list=ls())</code></pre>
 </div>

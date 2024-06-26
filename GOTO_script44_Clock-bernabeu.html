@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 51: Calculating bAge with Bernabeu</h1>
-<h4 class="date">Compiled: June 16, 2024</h4>
+<h4 class="date">Compiled: June 21, 2024</h4>
 
 </div>
 
@@ -1518,97 +1518,16 @@ div.tocify {
 library(survival)</code></pre>
 <pre class="r"><code>load('../GOTO_Data/GOTO_methData-filtered.Rdata')
 methData</code></pre>
-<pre><code>## Loading required package: SummarizedExperiment</code></pre>
-<pre><code>## Loading required package: MatrixGenerics</code></pre>
-<pre><code>## Loading required package: matrixStats</code></pre>
-<pre><code>## 
-## Attaching package: 'matrixStats'</code></pre>
-<pre><code>## The following object is masked from 'package:dplyr':
-## 
-##     count</code></pre>
-<pre><code>## 
-## Attaching package: 'MatrixGenerics'</code></pre>
-<pre><code>## The following objects are masked from 'package:matrixStats':
-## 
-##     colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,
-##     colCounts, colCummaxs, colCummins, colCumprods, colCumsums,
-##     colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,
-##     colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,
-##     colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,
-##     colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,
-##     colWeightedMeans, colWeightedMedians, colWeightedSds,
-##     colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,
-##     rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,
-##     rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,
-##     rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,
-##     rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,
-##     rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,
-##     rowWeightedMads, rowWeightedMeans, rowWeightedMedians,
-##     rowWeightedSds, rowWeightedVars</code></pre>
-<pre><code>## Loading required package: GenomicRanges</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## 
-## Attaching package: 'BiocGenerics'</code></pre>
-<pre><code>## The following objects are masked from 'package:dplyr':
-## 
-##     combine, intersect, setdiff, union</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, sd, var, xtabs</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
-##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
-##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
-##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
-##     Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
-##     table, tapply, union, unique, unsplit, which.max, which.min</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## 
-## Attaching package: 'S4Vectors'</code></pre>
-<pre><code>## The following objects are masked from 'package:dplyr':
-## 
-##     first, rename</code></pre>
-<pre><code>## The following object is masked from 'package:tidyr':
-## 
-##     expand</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     expand.grid, I, unname</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## 
-## Attaching package: 'IRanges'</code></pre>
-<pre><code>## The following objects are masked from 'package:dplyr':
-## 
-##     collapse, desc, slice</code></pre>
-<pre><code>## The following object is masked from 'package:purrr':
-## 
-##     reduce</code></pre>
-<pre><code>## Loading required package: GenomeInfoDb</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     'browseVignettes()'. To cite Bioconductor, see
-##     'citation(&quot;Biobase&quot;)', and for packages 'citation(&quot;pkgname&quot;)'.</code></pre>
-<pre><code>## 
-## Attaching package: 'Biobase'</code></pre>
-<pre><code>## The following object is masked from 'package:MatrixGenerics':
-## 
-##     rowMedians</code></pre>
-<pre><code>## The following objects are masked from 'package:matrixStats':
-## 
-##     anyMissing, rowMedians</code></pre>
 <pre><code>## class: SummarizedExperiment 
 ## dim: 755777 534 
 ## metadata(0):
 ## assays(1): beta
 ## rownames(755777): cg18478105 cg09835024 ... cg10633746 cg12623625
 ## rowData names(57): cpg chr ... MASK_extBase MASK_general
-## colnames: NULL
-## colData names(48): DNA_labnr IOP2_ID ... cc_musc_endo.y
-##   cc_musc_smooth.y</code></pre>
+## colnames(534): 203527980082_R01C01 203527980082_R02C01 ...
+##   203550300093_R07C01 203550300093_R08C01
+## colData names(104): DNA_labnr IOP2_ID ... cc_blood_ext_NK
+##   cc_blood_ext_Treg</code></pre>
 <p>Path to methylation table. Each column corresponds to an individual. Each row corresponds to CpG. First column is the CpG name. If RDS, assumed first column is rownames.</p>
 <pre class="r"><code>betas &lt;- as.data.frame(assay(methData))
 betas &lt;- betas %&gt;% rownames_to_column(var='cpg')
@@ -1881,46 +1800,185 @@ names(pred_df) &lt;- c(&quot;bAge&quot;, &quot;bAge_Years&quot;, &quot;GrimAge&q
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
 ## attached base packages:
-## [1] stats4    stats     graphics  grDevices utils     datasets  methods  
-## [8] base     
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] SummarizedExperiment_1.24.0 Biobase_2.58.0             
-##  [3] GenomicRanges_1.46.1        GenomeInfoDb_1.34.9        
-##  [5] IRanges_2.32.0              S4Vectors_0.36.2           
-##  [7] BiocGenerics_0.44.0         MatrixGenerics_1.10.0      
-##  [9] matrixStats_1.0.0           survival_3.5-5             
-## [11] forcats_0.5.2               stringr_1.5.0              
-## [13] dplyr_1.1.3                 purrr_0.3.4                
-## [15] readr_2.1.2                 tidyr_1.2.1                
-## [17] tibble_3.2.1                ggplot2_3.4.3              
-## [19] tidyverse_1.3.2             rmarkdown_2.16             
+##  [1] survival_3.5-5                                     
+##  [2] RPMM_1.25                                          
+##  [3] cluster_2.1.4                                      
+##  [4] impute_1.72.3                                      
+##  [5] dnaMethyAge_0.1.0                                  
+##  [6] methylclock_1.4.0                                  
+##  [7] devtools_2.4.4                                     
+##  [8] usethis_2.1.6                                      
+##  [9] methylclockData_1.6.0                              
+## [10] futile.logger_1.4.3                                
+## [11] pheatmap_1.0.12                                    
+## [12] clusterProfiler_4.2.2                              
+## [13] cinaR_0.2.3                                        
+## [14] edgeR_3.40.2                                       
+## [15] limma_3.54.2                                       
+## [16] MASS_7.3-60                                        
+## [17] ggpubr_0.4.0                                       
+## [18] ggrepel_0.9.1                                      
+## [19] lmerTest_3.1-3                                     
+## [20] lme4_1.1-30                                        
+## [21] Matrix_1.5-4.1                                     
+## [22] IlluminaHumanMethylation450kmanifest_0.4.0         
+## [23] IlluminaHumanMethylationEPICmanifest_0.3.0         
+## [24] FlowSorted.BloodExtended.EPIC_1.1.1                
+## [25] FlowSorted.Blood.EPIC_1.12.1                       
+## [26] IlluminaHumanMethylationEPICanno.ilm10b4.hg19_0.6.0
+## [27] nlme_3.1-162                                       
+## [28] quadprog_1.5-8                                     
+## [29] genefilter_1.76.0                                  
+## [30] ExperimentHub_2.2.1                                
+## [31] AnnotationHub_3.2.2                                
+## [32] BiocFileCache_2.2.1                                
+## [33] dbplyr_2.2.1                                       
+## [34] MuSiC_0.2.0                                        
+## [35] nnls_1.4                                           
+## [36] lubridate_1.9.2                                    
+## [37] DNAmArray_2.0.0                                    
+## [38] pls_2.8-2                                          
+## [39] FDb.InfiniumMethylation.hg19_2.2.0                 
+## [40] org.Hs.eg.db_3.14.0                                
+## [41] TxDb.Hsapiens.UCSC.hg19.knownGene_3.2.2            
+## [42] GenomicFeatures_1.46.5                             
+## [43] AnnotationDbi_1.56.2                               
+## [44] minfi_1.40.0                                       
+## [45] bumphunter_1.36.0                                  
+## [46] locfit_1.5-9.8                                     
+## [47] iterators_1.0.14                                   
+## [48] foreach_1.5.2                                      
+## [49] Biostrings_2.62.0                                  
+## [50] XVector_0.34.0                                     
+## [51] SummarizedExperiment_1.24.0                        
+## [52] Biobase_2.58.0                                     
+## [53] MatrixGenerics_1.10.0                              
+## [54] matrixStats_1.0.0                                  
+## [55] GenomicRanges_1.46.1                               
+## [56] GenomeInfoDb_1.34.9                                
+## [57] IRanges_2.32.0                                     
+## [58] S4Vectors_0.36.2                                   
+## [59] BiocGenerics_0.44.0                                
+## [60] forcats_0.5.2                                      
+## [61] stringr_1.5.0                                      
+## [62] dplyr_1.1.3                                        
+## [63] purrr_0.3.4                                        
+## [64] readr_2.1.2                                        
+## [65] tidyr_1.2.1                                        
+## [66] tibble_3.2.1                                       
+## [67] ggplot2_3.4.3                                      
+## [68] tidyverse_1.3.2                                    
+## [69] cli_3.6.1                                          
+## [70] htmltools_0.5.5                                    
+## [71] rlang_1.1.1                                        
+## [72] rmarkdown_2.16                                     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] httr_1.4.6             sass_0.4.6             bit64_4.0.5           
-##  [4] vroom_1.5.7            jsonlite_1.8.5         splines_4.2.2         
-##  [7] modelr_0.1.9           bslib_0.5.0            assertthat_0.2.1      
-## [10] GenomeInfoDbData_1.2.9 googlesheets4_1.0.1    cellranger_1.1.0      
-## [13] yaml_2.3.7             pillar_1.9.0           backports_1.4.1       
-## [16] lattice_0.21-8         glue_1.6.2             digest_0.6.31         
-## [19] XVector_0.34.0         rvest_1.0.3            colorspace_2.1-0      
-## [22] htmltools_0.5.5        Matrix_1.5-4.1         pkgconfig_2.0.3       
-## [25] broom_1.0.1            haven_2.5.1            zlibbioc_1.44.0       
-## [28] scales_1.2.1           tzdb_0.4.0             timechange_0.2.0      
-## [31] googledrive_2.0.0      generics_0.1.3         ellipsis_0.3.2        
-## [34] cachem_1.0.8           withr_2.5.0            cli_3.6.1             
-## [37] magrittr_2.0.3         crayon_1.5.2           readxl_1.4.1          
-## [40] evaluate_0.21          fs_1.6.2               fansi_1.0.4           
-## [43] xml2_1.3.4             tools_4.2.2            hms_1.1.2             
-## [46] gargle_1.5.0           lifecycle_1.0.3        munsell_0.5.0         
-## [49] reprex_2.0.2           DelayedArray_0.24.0    compiler_4.2.2        
-## [52] jquerylib_0.1.4        rlang_1.1.1            grid_4.2.2            
-## [55] RCurl_1.98-1.12        rstudioapi_0.14        bitops_1.0-7          
-## [58] gtable_0.3.3           DBI_1.1.3              R6_2.5.1              
-## [61] lubridate_1.9.2        knitr_1.43             bit_4.0.5             
-## [64] fastmap_1.1.1          utf8_1.2.3             stringi_1.7.12        
-## [67] parallel_4.2.2         vctrs_0.6.3            dbplyr_2.2.1          
-## [70] tidyselect_1.2.0       xfun_0.39</code></pre>
+##   [1] stringdist_0.9.10             ps_1.7.5                     
+##   [3] Rsamtools_2.10.0              crayon_1.5.2                 
+##   [5] rhdf5filters_1.10.1           backports_1.4.1              
+##   [7] reprex_2.0.2                  GOSemSim_2.20.0              
+##   [9] readxl_1.4.1                  SparseM_1.81                 
+##  [11] callr_3.7.3                   nloptr_2.0.3                 
+##  [13] filelock_1.0.2                BiocParallel_1.32.6          
+##  [15] rjson_0.2.21                  bit64_4.0.5                  
+##  [17] glue_1.6.2                    rngtools_1.5.2               
+##  [19] processx_3.8.1                DOSE_3.20.1                  
+##  [21] mcmc_0.9-7                    haven_2.5.1                  
+##  [23] tidyselect_1.2.0              BiocCheck_1.34.3             
+##  [25] XML_3.99-0.14                 zoo_1.8-12                   
+##  [27] GenomicAlignments_1.30.0      xtable_1.8-4                 
+##  [29] MatrixModels_0.5-1            magrittr_2.0.3               
+##  [31] PerformanceAnalytics_2.0.4    ExperimentHubData_1.24.0     
+##  [33] evaluate_0.21                 zlibbioc_1.44.0              
+##  [35] miniUI_0.1.1.1                rstudioapi_0.14              
+##  [37] doRNG_1.8.6                   bslib_0.5.0                  
+##  [39] fastmatch_1.1-3               lambda.r_1.2.4               
+##  [41] polynom_1.4-1                 treeio_1.18.1                
+##  [43] shiny_1.7.2                   xfun_0.39                    
+##  [45] askpass_1.1                   pkgbuild_1.4.1               
+##  [47] multtest_2.50.0               tidygraph_1.2.2              
+##  [49] AnnotationHubData_1.28.0      KEGGREST_1.34.0              
+##  [51] interactiveDisplayBase_1.32.0 quantreg_5.94                
+##  [53] base64_2.0.1                  ape_5.7-1                    
+##  [55] scrime_1.3.5                  png_0.1-8                    
+##  [57] reshape_0.8.9                 withr_2.5.0                  
+##  [59] bitops_1.0-7                  ggforce_0.3.4                
+##  [61] RBGL_1.74.0                   plyr_1.8.8                   
+##  [63] cellranger_1.1.0              coda_0.19-4                  
+##  [65] pillar_1.9.0                  biocViews_1.66.3             
+##  [67] cachem_1.0.8                  fs_1.6.2                     
+##  [69] RUnit_0.4.32                  xts_0.13.1                   
+##  [71] DelayedMatrixStats_1.16.0     vctrs_0.6.3                  
+##  [73] ellipsis_0.3.2                generics_0.1.3               
+##  [75] tools_4.2.2                   munsell_0.5.0                
+##  [77] tweenr_2.0.2                  fgsea_1.20.0                 
+##  [79] DelayedArray_0.24.0           pkgload_1.3.2                
+##  [81] fastmap_1.1.1                 compiler_4.2.2               
+##  [83] abind_1.4-5                   httpuv_1.6.11                
+##  [85] rtracklayer_1.54.0            sessioninfo_1.2.2            
+##  [87] beanplot_1.3.1                GenomeInfoDbData_1.2.9       
+##  [89] gridExtra_2.3                 MCMCpack_1.6-3               
+##  [91] ggpp_0.5.4                    lattice_0.21-8               
+##  [93] AnnotationForge_1.36.0        utf8_1.2.3                   
+##  [95] later_1.3.1                   jsonlite_1.8.5               
+##  [97] scales_1.2.1                  graph_1.76.0                 
+##  [99] tidytree_0.4.0                carData_3.0-5                
+## [101] sparseMatrixStats_1.10.0      lazyeval_0.2.2               
+## [103] promises_1.2.0.1              car_3.1-0                    
+## [105] htm2txt_2.2.2                 nor1mix_1.3-0                
+## [107] siggenes_1.68.0               downloader_0.4               
+## [109] igraph_1.4.3                  HDF5Array_1.22.1             
+## [111] numDeriv_2016.8-1.1           yaml_2.3.7                   
+## [113] memoise_2.0.1                 profvis_0.3.7                
+## [115] BiocIO_1.8.0                  graphlayouts_0.8.1           
+## [117] viridisLite_0.4.2             digest_0.6.31                
+## [119] assertthat_0.2.1              mime_0.12                    
+## [121] rappdirs_0.3.3                futile.options_1.0.1         
+## [123] RSQLite_2.2.17                yulab.utils_0.0.6            
+## [125] remotes_2.4.2                 data.table_1.14.8            
+## [127] urlchecker_1.0.1              blob_1.2.4                   
+## [129] preprocessCore_1.60.2         splines_4.2.2                
+## [131] labeling_0.4.2                Rhdf5lib_1.20.0              
+## [133] illuminaio_0.40.0             googledrive_2.0.0            
+## [135] OrganismDbi_1.36.0            RCurl_1.98-1.12              
+## [137] broom_1.0.1                   hms_1.1.2                    
+## [139] modelr_0.1.9                  rhdf5_2.42.1                 
+## [141] colorspace_2.1-0              BiocManager_1.30.21          
+## [143] aplot_0.1.7                   sass_0.4.6                   
+## [145] GEOquery_2.62.2               Rcpp_1.0.10                  
+## [147] mclust_6.0.0                  enrichplot_1.14.2            
+## [149] fansi_1.0.4                   tzdb_0.4.0                   
+## [151] R6_2.5.1                      grid_4.2.2                   
+## [153] lifecycle_1.0.3               formatR_1.14                 
+## [155] curl_5.0.1                    ggsignif_0.6.3               
+## [157] googlesheets4_1.0.1           minqa_1.2.5                  
+## [159] jquerylib_0.1.4               DO.db_2.9                    
+## [161] qvalue_2.26.0                 RColorBrewer_1.1-3           
+## [163] htmlwidgets_1.5.4             polyclip_1.10-4              
+## [165] biomaRt_2.50.3                shadowtext_0.1.2             
+## [167] timechange_0.2.0              gridGraphics_0.5-1           
+## [169] rvest_1.0.3                   openssl_2.0.6                
+## [171] patchwork_1.1.2               codetools_0.2-19             
+## [173] GO.db_3.14.0                  prettyunits_1.1.1            
+## [175] ggpmisc_0.5.4-1               gtable_0.3.3                 
+## [177] DBI_1.1.3                     dynamicTreeCut_1.63-1        
+## [179] ggfun_0.0.7                   httr_1.4.6                   
+## [181] highr_0.10                    stringi_1.7.12               
+## [183] vroom_1.5.7                   progress_1.2.2               
+## [185] reshape2_1.4.4                farver_2.1.1                 
+## [187] annotate_1.72.0               viridis_0.6.2                
+## [189] ggtree_3.2.1                  xml2_1.3.4                   
+## [191] boot_1.3-28.1                 restfulr_0.0.15              
+## [193] ggplotify_0.1.0               BiocVersion_3.16.0           
+## [195] bit_4.0.5                     scatterpie_0.1.8             
+## [197] ggraph_2.0.6                  pkgconfig_2.0.3              
+## [199] gargle_1.5.0                  rstatix_0.7.0                
+## [201] knitr_1.43</code></pre>
 <p>Clear</p>
 <pre class="r"><code>rm(list=ls())</code></pre>
 </div>

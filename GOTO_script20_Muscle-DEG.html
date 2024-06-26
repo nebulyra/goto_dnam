@@ -1502,7 +1502,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Script 20: Differential expression in muscle</h1>
-<h4 class="date">Compiled: June 23, 2024</h4>
+<h4 class="date">Compiled: June 26, 2024</h4>
 
 </div>
 
@@ -1678,8 +1678,35 @@ head(deg)</code></pre>
 ## ENSG00000055208 -0.1768428 6.3665159 2.927471e-08    TAB2 2.070958e-06
 ## ENSG00000104221 -0.2097496 3.1564529 2.992713e-08    BRF2 2.070958e-06
 ## ENSG00000126091 -0.2469463 5.9603147 3.682312e-08 ST3GAL3 2.123467e-06</code></pre>
-<pre class="r"><code>unique(deg$GENE.SYMBOL)</code></pre>
-<pre><code>## NULL</code></pre>
+<pre class="r"><code>unique(deg$gene)</code></pre>
+<pre><code>##   [1] &quot;HSD11B1&quot;   &quot;EPS15L1&quot;   &quot;AGPAT2&quot;    &quot;TAB2&quot;      &quot;BRF2&quot;      &quot;ST3GAL3&quot;  
+##   [7] &quot;LRRC20&quot;    &quot;FLII&quot;      &quot;FYN&quot;       &quot;INPP5A&quot;    &quot;LHFPL2&quot;    &quot;RUNX1&quot;    
+##  [13] &quot;DPP9&quot;      &quot;MCFD2&quot;     &quot;TMOD3&quot;     &quot;RBMS1&quot;     &quot;CRKL&quot;      &quot;NCOR2&quot;    
+##  [19] &quot;FDFT1&quot;     &quot;FSCN1&quot;     &quot;FAM96B&quot;    &quot;UBQLN4&quot;    &quot;PSMD3&quot;     &quot;KIAA0895L&quot;
+##  [25] &quot;THAP7&quot;     &quot;ATP1A1&quot;    &quot;FAM220A&quot;   &quot;FHOD1&quot;     &quot;C10orf76&quot;  &quot;SRL&quot;      
+##  [31] &quot;PMF1&quot;      &quot;RNF216&quot;    &quot;CAPRIN2&quot;   &quot;PROSC&quot;     &quot;ADAM12&quot;    &quot;PLXND1&quot;   
+##  [37] &quot;RAC1&quot;      &quot;MDH2&quot;      &quot;GRB10&quot;     &quot;RPRD1B&quot;    &quot;DHX32&quot;     &quot;TMOD2&quot;    
+##  [43] &quot;TMEM120A&quot;  &quot;SLC35E4&quot;   &quot;LEO1&quot;      &quot;EXOC3L1&quot;   &quot;ZFP36L1&quot;   &quot;PPIF&quot;     
+##  [49] &quot;DLL1&quot;      &quot;PCDHGC3&quot;   &quot;MRPS34&quot;    &quot;ZNF143&quot;    &quot;PES1&quot;      &quot;CHRND&quot;    
+##  [55] &quot;CD59&quot;      &quot;SRC&quot;       &quot;GSDMB&quot;     &quot;ARHGEF17&quot;  &quot;SERBP1&quot;    &quot;CDH24&quot;    
+##  [61] &quot;ALKBH3&quot;    &quot;ZNF219&quot;    &quot;ZNF703&quot;    &quot;EXTL3&quot;     &quot;HAGH&quot;      &quot;ARHGEF40&quot; 
+##  [67] &quot;PSMB5&quot;     &quot;ALKBH5&quot;    &quot;PLEKHG4&quot;   &quot;ZNF394&quot;    &quot;DRG2&quot;      &quot;HEG1&quot;     
+##  [73] &quot;GGA1&quot;      &quot;RAPGEF1&quot;   &quot;GINM1&quot;     &quot;THBS2&quot;     &quot;TOP2A&quot;     &quot;FBXO3&quot;    
+##  [79] &quot;MAPK8IP3&quot;  &quot;PCDHGA12&quot;  &quot;PSMA6&quot;     &quot;ZMIZ1&quot;     &quot;TTC7A&quot;     &quot;LINC01119&quot;
+##  [85] &quot;FPR3&quot;      &quot;SLFN11&quot;    &quot;TRAF6&quot;     &quot;FAHD1&quot;     &quot;FKBP5&quot;     &quot;UCK2&quot;     
+##  [91] &quot;EME2&quot;      &quot;ZNF789&quot;    &quot;NUBP2&quot;     &quot;PCDHGA2&quot;   &quot;PCDHGC5&quot;   &quot;TAF2&quot;     
+##  [97] &quot;HRH1&quot;      &quot;JMJD1C&quot;    &quot;CHSY1&quot;     &quot;SWAP70&quot;    &quot;ATP5J2&quot;    &quot;E2F4&quot;     
+## [103] &quot;CEP68&quot;     &quot;C11orf96&quot;  &quot;SPSB3&quot;     &quot;GID4&quot;      &quot;UNC45B&quot;    &quot;ZNF655&quot;   
+## [109] &quot;LRRK1&quot;     &quot;KIFC3&quot;     &quot;EDEM3&quot;     &quot;SPCS2&quot;     &quot;CHRNG&quot;     &quot;NET1&quot;     
+## [115] &quot;C14orf159&quot; &quot;PPID&quot;      &quot;SEMA6B&quot;    &quot;FAM129A&quot;   &quot;FPR2&quot;      &quot;DEPTOR&quot;   
+## [121] &quot;CPQ&quot;       &quot;RPS6KA5&quot;   &quot;AP1M1&quot;     &quot;ADAM19&quot;    &quot;PPARGC1B&quot;  &quot;CAPN2&quot;    
+## [127] &quot;ID4&quot;       &quot;FAM193B&quot;   &quot;DDC&quot;       &quot;CLEC3B&quot;    &quot;P2RY6&quot;     &quot;DBN1&quot;     
+## [133] &quot;CAMK2D&quot;    &quot;LCOR&quot;      &quot;RPL26L1&quot;   &quot;TMCC1&quot;     &quot;ATP6V0E1&quot;  &quot;LZTR1&quot;    
+## [139] &quot;LRG1&quot;      &quot;SRP9&quot;      &quot;MED24&quot;     &quot;GAL3ST1&quot;   &quot;LRRC55&quot;    &quot;SCAMP1&quot;   
+## [145] &quot;C5orf66&quot;   &quot;WSCD1&quot;     &quot;THRB&quot;      &quot;REV3L&quot;     &quot;FPR1&quot;      &quot;PAMR1&quot;    
+## [151] &quot;GPR68&quot;     &quot;EEPD1&quot;     &quot;KATNB1&quot;    &quot;FAM120B&quot;   &quot;PTCD1&quot;     &quot;SLC9A5&quot;   
+## [157] &quot;C9orf3&quot;    &quot;ZKSCAN5&quot;   &quot;ABCA8&quot;     &quot;DDX41&quot;     &quot;INTS9&quot;     &quot;RPN2&quot;     
+## [163] &quot;H2AFY&quot;     &quot;TRAF3IP2&quot;  &quot;GLIS2&quot;     &quot;FAM213A&quot;</code></pre>
 <hr />
 </div>
 <div id="save" class="section level1">
